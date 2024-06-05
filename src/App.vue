@@ -4,6 +4,7 @@
     <div class="grow__img">
       <img class="grow__logo" src="./assets/img/grow-master-logo.jpeg" alt="">
     </div>
+    <h1>teste</h1>
     <Home />
   </div>
 </template>
