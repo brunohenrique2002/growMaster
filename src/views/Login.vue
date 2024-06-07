@@ -5,28 +5,42 @@
     </div>
     <div class="login__form">
       <h1 class="login__welcome">Bem vindo</h1>
-      <div>
+      <div class="login__input">
         <Input type="text" text="Email" placeholder="Digite seu email" id="email" name="email" />
         <Input type="password" text="Senha" placeholder="Digite sua senha" id="password" name="password" />
       </div>
+      <div class="login__button">
+        <LButton text="Login" />
+      </div>
+
     </div>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 import Input from '@/components/atoms/Input.vue';
+import LButton from '@/components/atoms/LButton.vue'
+
 
 export default defineComponent({
   name: 'Login',
   setup() {
     return {};
   },
-  components: { Input }
+  components: { Input, LButton }
 });
 </script>
 <style scoped lang="scss">
 .login {
   @media (max-width: 600px) {
+    &__button {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1em;
+    }
+
     &__welcome {
       font-size: 1.8em;
       color: #474747;
