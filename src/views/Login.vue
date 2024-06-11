@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="login__img">
-      <img class="login__logo" src="@/assets/img/grow-master-logo.jpeg" alt="">
+      <img class="login__logo" src="@/assets/img/grow-master-logo.jpeg" alt="Logo Grow">
     </div>
     <div class="login__form">
       <h1 class="login__welcome">Bem vindo</h1>
@@ -35,6 +35,11 @@ export default defineComponent({
 <style scoped lang="scss">
 .login {
   @media (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+
     &__forgot {
       display: flex;
       justify-content: flex-end;
@@ -55,10 +60,6 @@ export default defineComponent({
       color: var(--color-primary);
     }
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100vh;
 
     &__logo {
       width: 300px;

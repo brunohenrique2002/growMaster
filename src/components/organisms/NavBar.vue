@@ -1,5 +1,7 @@
 <template>
-    <h1>NavBar</h1>
+    <div class="navBar">
+        <h1>Nav</h1>
+    </div>
 </template>
 <script>
 import { defineComponent } from 'vue';
@@ -10,4 +12,10 @@ export default defineComponent({
     },
 });
 </script>
-<style></style>
+<style scoped lang="scss">
+.navBar {
+
+    background: var(--color-primary);
+    padding: 1em 0em;
+}
+</style>

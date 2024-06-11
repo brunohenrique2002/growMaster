@@ -1,9 +1,11 @@
 <template>
-    <div>
+    <div class="teste">
         <DashBoard />
-        <main>
-            <RouterView />
-        </main>
+        <div class="teste2">
+            <main>
+                <RouterView />
+            </main>
+        </div>
         <NavBar />
     </div>
 </template>
@@ -19,4 +21,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.teste2 {
+    min-height: 87vh;
+}
+</style>
