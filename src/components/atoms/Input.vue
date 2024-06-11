@@ -29,15 +29,14 @@ const props = defineProps<{
     &__label {
         margin-bottom: 0.6em;
         font-weight: bold;
-        color: #474747;
+        color: var(--color-primary);
     }
 
     &__input {
-        padding: 0.7em;
+        padding: 0.9em;
         border-radius: 0;
         border: none;
-        background-color: #88f9b26b;
-        border-bottom: 2px solid #3dcf67;
+        border-bottom: 2px solid var(--color-lightgreen);
     }
 
     &__input:focus-visible {

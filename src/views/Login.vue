@@ -12,7 +12,9 @@
       <div class="login__button">
         <LButton text="Login" />
       </div>
-
+      <div class="login__forgot">
+        <p>Esqueceu sua senha?</p>
+      </div>
     </div>
   </div>
 </template>
@@ -33,6 +35,13 @@ export default defineComponent({
 <style scoped lang="scss">
 .login {
   @media (max-width: 600px) {
+    &__forgot {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1.6em;
+      color: var(--color-primary);
+    }
+
     &__button {
       width: 100%;
       display: flex;
@@ -43,7 +52,7 @@ export default defineComponent({
 
     &__welcome {
       font-size: 1.8em;
-      color: #474747;
+      color: var(--color-primary);
     }
 
     display: flex;
@@ -64,11 +73,12 @@ export default defineComponent({
     }
 
     &__form {
-      background-color: rgba(136, 249, 178, 0.4196078431);
-      border: 1px solid #3dcf67;
+      background-color: var(--color-secundary);
+      border: 1px solid var(--color-primary);
       padding: 3em 1em;
       border-radius: 1em;
-      min-height: 391px;
+      min-height: 310px;
+      margin: 1.6em;
     }
   }
 }
