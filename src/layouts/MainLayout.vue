@@ -1,7 +1,7 @@
 <template>
-    <div class="teste">
+    <div class="mainLayout">
         <DashBoard />
-        <div class="teste2">
+        <div class="mainLayout__home">
             <main>
                 <RouterView />
             </main>
@@ -22,7 +22,13 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
-.teste2 {
-    min-height: 87vh;
+.mainLayout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    &__home {
+        flex: 1;
+    }
 }
 </style>

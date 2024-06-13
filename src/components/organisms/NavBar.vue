@@ -1,6 +1,11 @@
 <template>
     <div class="navBar">
-        <h1>Nav</h1>
+        <ul class="navBar__list-container">
+            <li v-for="(item, index) in navItens" class="navBar__itens">
+                <font-awesome-icon class="navBar__icon" :icon="item.icon" />
+                <p>{{ item.text }}</p>
+            </li>
+        </ul>
     </div>
 </template>
 <script>
@@ -8,7 +13,16 @@ import { defineComponent } from 'vue';
 export default defineComponent({
     name: 'NavBar',
     setup() {
-        return {};
+        const navItens = [
+            { icon: ['fas', 'house'], text: 'Home' },
+            { icon: ['fas', 'magnifying-glass'], text: 'Search' },
+            { icon: ['far', 'square-plus'], text: 'New' },
+            { icon: ['far', 'comment'], text: 'Messages' },
+            { icon: ['far', 'user'], text: 'Profile' },
+        ]
+        return {
+            navItens
+        };
     },
 });
 </script>
@@ -17,5 +31,30 @@ export default defineComponent({
 
     background: var(--color-primary);
     padding: 1em 0em;
+
+    &__list-container {
+        display: flex;
+        justify-content: space-around;
+        padding: 0;
+        color: var(--color-white);
+    }
+
+    &__itens {
+
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__icon {
+        font-size: 1.7em;
+        margin-bottom: .5em;
+    }
+
+    p {
+        font-size: 1.2em;
+    }
+
 }
 </style>

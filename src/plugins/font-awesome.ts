@@ -6,8 +6,10 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { faSquarePlus } from '@fortawesome/free-regular-svg-icons';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
+import { faHouse } from '@fortawesome/free-solid-svg-icons';
+import { faComment } from '@fortawesome/free-regular-svg-icons';
 
-library.add(faUser, faSearch, faBars, faSquarePlus, faGear);
+library.add(faUser, faSearch, faBars, faSquarePlus, faGear, faHouse, faComment);
 
 
 
