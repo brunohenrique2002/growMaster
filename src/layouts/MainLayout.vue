@@ -1,6 +1,7 @@
 <template>
     <div class="mainLayout">
         <DashBoard />
+
         <div class="mainLayout__home">
             <main class="mainLayout__content">
                 <RouterView />
@@ -29,12 +30,20 @@ export default defineComponent({
 
     &__home {
         display: flex;
-    justify-content: center;
-    align-items: center;
+        justify-content: center;
+        align-items: center;
         flex: 1;
     }
-    &__content{
+
+    &__content {
         width: 100%;
+    }
+    @media (min-width: 600px) {
+        &__content {
+        width: 90%;
+        display: flex;
+        justify-content: center;
+    } 
     }
 }
 </style>

@@ -27,12 +27,16 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .home {
-    @media (max-width: 600px) {
-        border: 1px solid var(--color-lightgreen);
-        padding: 1em;
-        margin: 0.5em;
-        border-radius: 1em;
-        min-height: 290px;
+    border: 1px solid var(--color-lightgreen);
+    padding: 1em;
+    margin: 0.5em;
+    border-radius: 1em;
+    min-height: 290px;
+
+    @media (min-width: 600px) {
+        padding: 1em 8em;
+        min-height: 410px;
+        width: 90%;
     }
 }
 </style>

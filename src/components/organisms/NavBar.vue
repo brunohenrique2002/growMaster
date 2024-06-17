@@ -1,11 +1,13 @@
 <template>
     <div class="navBar">
-        <ul class="navBar__list-container">
-            <li v-for="(item, index) in navItens" :key="index" class="navBar__itens">
-                <font-awesome-icon class="navBar__icon" :icon="item.icon" />
-                <p>{{ item.text }}</p>
-            </li>
-        </ul>
+        <div class="navBar__container">
+            <ul class="navBar__list-container">
+                <li v-for="(item, index) in navItens" :key="index" class="navBar__itens">
+                    <font-awesome-icon class="navBar__icon" :icon="item.icon" />
+                    <p>{{ item.text }}</p>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 <script lang="ts">
@@ -28,19 +30,19 @@ export default defineComponent({
 </script>
 <style scoped lang="scss">
 .navBar {
-
     background: var(--color-primary);
     padding: 1em 0em;
+    display: flex;
+    justify-content: center;
 
     &__list-container {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         padding: 0;
         color: var(--color-white);
     }
 
     &__itens {
-
         list-style: none;
         display: flex;
         flex-direction: column;
@@ -54,6 +56,19 @@ export default defineComponent({
 
     p {
         font-size: 1.2em;
+    }
+    &__container {
+            width: 90%;
+    }
+
+    @media (min-width: 600px) {
+        display: flex;
+        justify-content: center;
+        padding: 0;
+
+        &__container {
+            width: 90%;
+        }
     }
 
 }

@@ -48,32 +48,35 @@ export default defineComponent({
   
 <style scoped lang="scss">
 .table {
-    @media (max-width: 600px) {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+        padding: 1em;
+        text-align: center;
+        font-size: 1.3em;
+    }
+
+    thead,
+    tr {
+        border-bottom: 1px solid var(--color-primary);
+        display: flex;
+        justify-content: space-around;
         width: 100%;
-        border-collapse: collapse;
+    }
 
-        th,
-        td {
-            padding: 1em;
-            text-align: center;
-            font-size: 1.3em;
-        }
-
-        thead,
-        tr {
-            border-bottom: 1px solid var(--color-primary);
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-        }
-
-        th {
-            color: var(--color-primary);
-            font-size: 1.3em;
-        }
-        &__icons{
-            color: var(--color-primary);
-            margin-left: 5px;
+    th {
+        color: var(--color-primary);
+        font-size: 1.3em;
+    }
+    &__icons{
+        color: var(--color-primary);
+        margin-left: 5px;
+    }
+    @media (min-width: 600px) {
+        td{
+            padding: 1.5em;
         }
     }
 }
