@@ -2,7 +2,7 @@
     <div class="mainLayout">
         <DashBoard />
         <div class="mainLayout__home">
-            <main>
+            <main class="mainLayout__content">
                 <RouterView />
             </main>
         </div>
@@ -28,7 +28,13 @@ export default defineComponent({
     min-height: 100vh;
 
     &__home {
+        display: flex;
+    justify-content: center;
+    align-items: center;
         flex: 1;
+    }
+    &__content{
+        width: 100%;
     }
 }
 </style>

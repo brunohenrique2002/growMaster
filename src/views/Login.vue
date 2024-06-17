@@ -9,9 +9,11 @@
         <Input type="text" text="Email" placeholder="Digite seu email" id="email" name="email" />
         <Input type="password" text="Senha" placeholder="Digite sua senha" id="password" name="password" />
       </div>
-      <div class="login__button">
-        <LButton text="Login" />
-      </div>
+      <router-link to="/dashboard">
+        <div class="login__button">
+          <LButton text="Login" />
+        </div>
+      </router-link>
       <div class="login__forgot">
         <p>Esqueceu sua senha?</p>
       </div>
@@ -22,8 +24,7 @@
 import { defineComponent } from 'vue';
 import Input from '@/components/atoms/Input.vue';
 import LButton from '@/components/atoms/LButton.vue'
-
-
+import { RouterLink } from 'vue-router'
 export default defineComponent({
   name: 'Login',
   setup() {
@@ -34,52 +35,66 @@ export default defineComponent({
 </script>
 <style scoped lang="scss">
 .login {
-  @media (max-width: 600px) {
+
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: normal;
+  height: 100vh;
+
+  &__forgot {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.6em;
+    color: var(--color-primary);
+  }
+
+  &__button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+  }
+
+  &__welcome {
+    font-size: 1.8em;
+    color: var(--color-primary);
+  }
+
+
+  &__logo {
+    width: 300px;
+    border-radius: 10px;
+  }
+
+  &__img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2em;
+  }
+
+  &__form {
+    background-color: var(--color-secundary);
+    border: 1px solid var(--color-primary);
+    padding: 3em 1em;
+    border-radius: 1em;
+    min-height: 310px;
+    margin: 1.6em;
+    width: auto;
+  }
+
+  @media (min-width: 600px) {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     height: 100vh;
-
-    &__forgot {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 1.6em;
-      color: var(--color-primary);
-    }
-
-    &__button {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 1em;
-    }
-
-    &__welcome {
-      font-size: 1.8em;
-      color: var(--color-primary);
-    }
-
-
-    &__logo {
-      width: 300px;
-      border-radius: 10px;
-    }
-
-    &__img {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 2em;
-    }
-
-    &__form {
-      background-color: var(--color-secundary);
-      border: 1px solid var(--color-primary);
-      padding: 3em 1em;
-      border-radius: 1em;
-      min-height: 310px;
-      margin: 1.6em;
+    
+    &__form{
+      width: 400px;
     }
   }
 }

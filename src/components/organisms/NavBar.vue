@@ -1,14 +1,14 @@
 <template>
     <div class="navBar">
         <ul class="navBar__list-container">
-            <li v-for="(item, index) in navItens" class="navBar__itens">
+            <li v-for="(item, index) in navItens" :key="index" class="navBar__itens">
                 <font-awesome-icon class="navBar__icon" :icon="item.icon" />
                 <p>{{ item.text }}</p>
             </li>
         </ul>
     </div>
 </template>
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue';
 export default defineComponent({
     name: 'NavBar',
