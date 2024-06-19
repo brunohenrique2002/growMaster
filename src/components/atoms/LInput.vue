@@ -5,8 +5,6 @@
     </div>
 </template>
 <script setup lang="ts">
-import { defineProps } from 'vue';
-
 type InputType = "text" | "number" | "email" | "password"
 
 const props = defineProps<{

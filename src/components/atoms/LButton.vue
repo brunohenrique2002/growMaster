@@ -3,12 +3,22 @@
         <button class="Lbutton__btn">{{ text }}</button>
     </div>
 </template>
-<script setup lang="ts">
-import { defineProps } from 'vue';
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-const props = defineProps<{
-    text: string,
-}>()
+export default defineComponent({
+    name: 'LTable',
+    props: {
+        text: {
+            type: String,
+            default: ''
+        },
+    }
+});
+
+// const props = defineProps<{
+//     text: string,
+// }>()
 
 </script>
 

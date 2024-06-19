@@ -6,8 +6,8 @@
     <div class="login__form">
       <h1 class="login__welcome">Bem vindo</h1>
       <div class="login__input">
-        <Input type="text" text="Email" placeholder="Digite seu email" id="email" name="email" />
-        <Input type="password" text="Senha" placeholder="Digite sua senha" id="password" name="password" />
+        <LInput type="text" text="Email" placeholder="Digite seu email" id="email" name="email" :value="email"/>
+        <LInput type="password" text="Senha" placeholder="Digite sua senha" id="password" name="password" :value="password" />
       </div>
       <router-link to="/dashboard">
         <div class="login__button">
@@ -21,16 +21,18 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
-import Input from '@/components/atoms/Input.vue';
+import { defineComponent, ref } from 'vue';
+import LInput from '@/components/atoms/LInput.vue';
 import LButton from '@/components/atoms/LButton.vue'
 import { RouterLink } from 'vue-router'
 export default defineComponent({
   name: 'Login',
   setup() {
-    return {};
+    const email = ref('');
+    const password = ref('');
+    return {email, password};
   },
-  components: { Input, LButton }
+  components: { LInput, LButton }
 });
 </script>
 <style scoped lang="scss">
