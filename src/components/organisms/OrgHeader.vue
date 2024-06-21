@@ -2,7 +2,8 @@
         <div class="header">
             <div class="header__container">
                 <div class="header__header">
-                    <AtIcons class="header__bars" :icon="['fas', 'bars']" size="2x" />
+                    <!-- <AtIcons class="header__bars" :icon="['fas', 'bars']" size="2x" /> -->
+                    <MolMenu class="header__bars" />
                     <img class="header__logo" src="@/assets/img/grow-master-logo-transparent.png" alt="Logo Grow">
                     <div class="header__gearIcon">
                         <AtIcons class="header__gear" :icon="['fas', 'gear']" />
@@ -14,9 +15,10 @@
 <script>
 import { defineComponent } from 'vue';
 import AtIcons from '@/components/atoms/AtIcons.vue'
+import MolMenu from '@/components/molecules/MolMenu.vue'
 export default defineComponent({
     name: 'OrgHeader',
-    components: { AtIcons },
+    components: { AtIcons, MolMenu },
     setup() {
         const handleActive = () => {
             console.log("Ativado");

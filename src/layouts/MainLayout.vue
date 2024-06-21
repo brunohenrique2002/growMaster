@@ -1,7 +1,6 @@
 <template>
   <div class="mainLayout">
     <OrgHeader />
-    <SideBar />
     <div class="mainLayout__home">
       <main class="mainLayout__content">
         <RouterView />
@@ -14,11 +13,9 @@
 import OrgNavBar from '@/components/organisms/OrgNavBar.vue'
 import OrgHeader from '@/components/organisms/OrgHeader.vue'
 import { defineComponent } from 'vue'
-import { RouterView } from 'vue-router'
-import SideBar from '@/components/organisms/SideBar.vue';
 export default defineComponent({
   name: 'MainLayout',
-  components: { OrgNavBar, OrgHeader, SideBar }
+  components: { OrgNavBar, OrgHeader }
 })
 </script>
 
