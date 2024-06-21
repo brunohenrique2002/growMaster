@@ -1,29 +1,29 @@
 <template>
-    <div class="Lbutton">
-        <button class="Lbutton__btn">{{ text }}</button>
+    <div class="AtButton">
+        <button class="AtButton__btn">{{ text }}</button>
     </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'LTable',
+    name: 'AtButton',
     props: {
         text: {
             type: String,
             default: ''
         },
+    },
+    setup() {
+        return {}
     }
 });
 
-// const props = defineProps<{
-//     text: string,
-// }>()
 
 </script>
 
 <style scoped lang="scss">
-.Lbutton {
+.AtButton {
     width: 100%;
     margin-top: 1em;
 
@@ -39,8 +39,9 @@ export default defineComponent({
         font-weight: bold;
 
     }
+
     @media (min-width: 600px) {
-        &__btn:hover{
+        &__btn:hover {
             transition: .6s;
             background-color: #3fa993;
         }

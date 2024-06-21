@@ -1,7 +1,8 @@
 <template>
     <div class="grow-input">
         <label class="grow-input__label" :for="name">{{ text }}</label>
-        <input class="grow-input__input" :type="type" :placeholder="placeholder" :id="name" :name="name" :value="value" />
+        <input class="grow-input__input" :type="type" :placeholder="placeholder" :id="name" :name="name"
+            :value="value" />
     </div>
 </template>
 <script setup lang="ts">

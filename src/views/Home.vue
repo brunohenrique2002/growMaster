@@ -1,14 +1,14 @@
 <template>
     <div class="home">
-        <LTable :titles="tableHeaders" :items="tableRows" />
+        <AtTable :titles="tableHeaders" :items="tableRows" />
     </div>
 </template>
 <script>
 import { defineComponent } from 'vue';
-import LTable from '@/components/atoms/LTable.vue';
+import AtTable from '@/components/atoms/AtTable.vue';
 export default defineComponent({
     name: 'Home',
-    components: { LTable },
+    components: { AtTable },
     setup() {
 
         const tableHeaders = ['Grow', 'Planta', 'Última rega', 'Ações']

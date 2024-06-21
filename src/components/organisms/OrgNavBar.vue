@@ -1,9 +1,9 @@
 <template>
-    <div class="navBar">
-        <div class="navBar__container">
-            <ul class="navBar__list-container">
-                <li v-for="(item, index) in navItens" :key="index" class="navBar__itens">
-                    <font-awesome-icon class="navBar__icon" :icon="item.icon" />
+    <div class="org-navBar">
+        <div class="org-navBar__container">
+            <ul class="org-navBar__list-container">
+                <li v-for="(item, index) in navItens" :key="index" class="org-navBar__itens">
+                    <AtIcons class="org-navBar__icon" :icon="item.icon" />
                     <p>{{ item.text }}</p>
                 </li>
             </ul>
@@ -12,8 +12,10 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import AtIcons from '@/components/atoms/AtIcons.vue'
 export default defineComponent({
     name: 'NavBar',
+    components: { AtIcons },
     setup() {
         const navItens = [
             { icon: ['fas', 'house'], text: 'Home' },
@@ -29,7 +31,7 @@ export default defineComponent({
 });
 </script>
 <style scoped lang="scss">
-.navBar {
+.org-navBar {
     background: var(--color-primary);
     padding: 1em 0em;
     display: flex;
@@ -57,8 +59,9 @@ export default defineComponent({
     p {
         font-size: 1.2em;
     }
+
     &__container {
-            width: 90%;
+        width: 90%;
     }
 
     @media (min-width: 600px) {
