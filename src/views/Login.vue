@@ -6,12 +6,13 @@
     <div class="login__form">
       <h1 class="login__welcome">Bem vindo</h1>
       <div class="login__input">
-        <LInput type="text" text="Email" placeholder="Digite seu email" id="email" name="email" :value="email"/>
-        <LInput type="password" text="Senha" placeholder="Digite sua senha" id="password" name="password" :value="password" />
+        <AtInput type="text" text="Email" placeholder="Digite seu email" id="email" name="email" :value="email" />
+        <AtInput type="password" text="Senha" placeholder="Digite sua senha" id="password" name="password"
+          :value="password" />
       </div>
       <router-link to="/dashboard">
         <div class="login__button">
-          <LButton text="Login" />
+          <AtButton text="Login" />
         </div>
       </router-link>
       <div class="login__forgot">
@@ -22,17 +23,17 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import LInput from '@/components/atoms/LInput.vue';
-import LButton from '@/components/atoms/LButton.vue'
+import AtInput from '@/components/atoms/AtInput.vue';
+import AtButton from '@/components/atoms/AtButton.vue'
 import { RouterLink } from 'vue-router'
 export default defineComponent({
   name: 'Login',
   setup() {
     const email = ref('');
     const password = ref('');
-    return {email, password};
+    return { email, password };
   },
-  components: { LInput, LButton }
+  components: { AtInput, AtButton }
 });
 </script>
 <style scoped lang="scss">
@@ -94,8 +95,8 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     height: 100vh;
-    
-    &__form{
+
+    &__form {
       width: 400px;
     }
   }

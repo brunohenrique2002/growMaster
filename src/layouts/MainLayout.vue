@@ -1,22 +1,21 @@
 <template>
   <div class="mainLayout">
-    <DashBoard />
+    <OrgHeader />
     <div class="mainLayout__home">
       <main class="mainLayout__content">
         <RouterView />
       </main>
     </div>
-    <NavBar />
+    <OrgNavBar />
   </div>
 </template>
 <script lang="ts">
-import NavBar from '@/components/organisms/NavBar.vue'
-import DashBoard from '@/components/organisms/DashBoard.vue'
+import OrgNavBar from '@/components/organisms/OrgNavBar.vue'
+import OrgHeader from '@/components/organisms/OrgHeader.vue'
 import { defineComponent } from 'vue'
-import { RouterView } from 'vue-router'
 export default defineComponent({
   name: 'MainLayout',
-  components: { NavBar, DashBoard }
+  components: { OrgNavBar, OrgHeader }
 })
 </script>
 
@@ -36,6 +35,7 @@ export default defineComponent({
   &__content {
     width: 100%;
   }
+
   @media (min-width: 600px) {
     &__content {
       width: 90%;

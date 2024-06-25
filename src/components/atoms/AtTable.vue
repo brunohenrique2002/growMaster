@@ -10,8 +10,8 @@
             <tr v-for="(item, index) in items" :key="index">
                 <td v-for="(title, index) in titles" :key="index">
                     <span v-if="title === 'Ações'">
-                        <font-awesome-icon class="table__icons"  :icon="['fas', 'eye']" />
-                        <font-awesome-icon class="table__icons" :icon="['fas', 'trash']" />
+                        <AtIcons class="table__icons" :icon="['fas', 'eye']" />
+                        <AtIcons class="table__icons" :icon="['fas', 'trash']" />
                     </span>
                     <span v-else>
                         {{ item[title] }}
@@ -21,16 +21,16 @@
         </tbody>
     </table>
 </template>
-  
+
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-
+import AtIcons from '@/components/atoms/AtIcons.vue'
 interface TableRow {
     [key: string]: any;
 }
-
 export default defineComponent({
-    name: 'LTable',
+    name: 'AtTable',
+    components: { AtIcons },
     props: {
         titles: {
             type: Array as PropType<string[]>,
@@ -45,7 +45,7 @@ export default defineComponent({
     }
 });
 </script>
-  
+
 <style scoped lang="scss">
 .table {
     width: 100%;
@@ -70,15 +70,16 @@ export default defineComponent({
         color: var(--color-primary);
         font-size: 1.3em;
     }
-    &__icons{
+
+    &__icons {
         color: var(--color-primary);
         margin-left: 5px;
     }
+
     @media (min-width: 600px) {
-        td{
+        td {
             padding: 1.5em;
         }
     }
 }
 </style>
-  
