@@ -1,9 +1,10 @@
 <template>
     <div class="org-navBar">
+        <MolBottomModal></MolBottomModal>
         <div class="org-navBar__container">
             <ul class="org-navBar__list-container">
                 <li v-for="(item, index) in navItens" :key="index" class="org-navBar__itens">
-                    <AtIcons class="org-navBar__icon" :icon="item.icon" />
+                    <AtIcons class="org-navBar__icon" :icon="item.icon" @click="handleAction(item)" />
                     <p>{{ item.text }}</p>
                 </li>
             </ul>
@@ -13,19 +14,46 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import AtIcons from '@/components/atoms/AtIcons.vue'
+import MolBottomModal from '@/components/molecules/MolBottomModal.vue'
 export default defineComponent({
     name: 'NavBar',
-    components: { AtIcons },
+    components: { AtIcons, MolBottomModal },
     setup() {
         const navItens = [
-            { icon: ['fas', 'house'], text: 'Home' },
-            { icon: ['fas', 'magnifying-glass'], text: 'Search' },
-            { icon: ['far', 'square-plus'], text: 'New' },
-            { icon: ['far', 'comment'], text: 'Messages' },
-            { icon: ['far', 'user'], text: 'Profile' },
+            {
+                icon: ['fas', 'house'],
+                text: 'Home'
+            },
+            {
+                icon: ['fas', 'magnifying-glass'],
+                text: 'Search'
+            },
+            {
+                icon: ['far', 'square-plus'],
+                text: 'New',
+                action: () => {
+                    showModal()
+                }
+            },
+            {
+                icon: ['far', 'comment'],
+                text: 'Messages'
+            },
+            {
+                icon: ['far', 'user'],
+                text: 'Profile'
+            },
         ]
+        const showModal = () => {
+            console.log("Show Modal");
+        }
+        const handleAction = (item: any) => {
+            if (item.action) {
+                item.action()
+            }
+        }
         return {
-            navItens
+            navItens, handleAction, showModal
         };
     },
 });
@@ -52,7 +80,7 @@ export default defineComponent({
     }
 
     &__icon {
-        font-size: 1.7em;
+        font-size: 2em;
         margin-bottom: .5em;
     }
 

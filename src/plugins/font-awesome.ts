@@ -10,7 +10,21 @@ import { faComment } from '@fortawesome/free-regular-svg-icons'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faUser, faSearch, faBars, faSquarePlus, faGear, faHouse, faComment, faEye, faTrash, faAnglesLeft)
+
+library.add(
+    faUser,
+    faSearch,
+    faBars,
+    faSquarePlus,
+    faGear,
+    faHouse,
+    faComment,
+    faEye,
+    faTrash,
+    faAnglesLeft,
+    faArrowRightFromBracket,
+)
 
 export { FontAwesomeIcon }
