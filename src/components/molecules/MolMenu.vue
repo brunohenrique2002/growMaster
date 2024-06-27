@@ -54,10 +54,11 @@ export default defineComponent({
 
       watch(
          () => menuStore.isActive,
+
          (newValue) => {
             const body = document.querySelector('body');
             if (body) {
-               body.style.overflow = newValue ? 'hidden' : '';
+               body.style.overflow = 'hidden';
             }
          }
       );
@@ -72,7 +73,7 @@ export default defineComponent({
       width: 100%;
       height: 100vh;
       background-color: var(--color-darkgreen);
-      position: fixed;
+      position: absolute;
       left: -100%;
       top: 67px;
       transition: left 0.3s ease;

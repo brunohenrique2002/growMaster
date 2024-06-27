@@ -1,6 +1,6 @@
 <template>
     <div class="org-navBar">
-        <!-- <MolBottomModal></MolBottomModal> -->
+        <MolBottomModal></MolBottomModal>
         <div class="org-navBar__container">
             <ul class="org-navBar__list-container">
                 <li v-for="(item, index) in navItens" :key="index" class="org-navBar__itens">
@@ -14,10 +14,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import AtIcons from '@/components/atoms/AtIcons.vue'
-// import MolBottomModal from '@/components/molecules/MolBottomModal.vue'
+import MolBottomModal from '@/components/molecules/MolBottomModal.vue'
 export default defineComponent({
     name: 'NavBar',
-    components: { AtIcons, },
+    components: { AtIcons, MolBottomModal },
     setup() {
         const navItens = [
             {
