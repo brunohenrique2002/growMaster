@@ -5,18 +5,42 @@
             :value="value" />
     </div>
 </template>
-<script setup lang="ts">
-type InputType = "text" | "number" | "email" | "password"
+<script lang="ts">
+import { defineComponent } from 'vue';
+type InputType = "text" | "number" | "email" | "password" | "date" | "file"
+export default defineComponent({
+    name: 'AtInput',
+    props: {
+        text: {
+            type: String,
+            default: ''
+        },
+        name: {
+            type: String,
+            default: ''
+        },
+        placeholder: {
+            type: String,
+            default: ''
+        },
+        id: {
+            type: String,
+            required: true
+        },
+        value: {
+            type: String,
+            default: ''
+        },
+        type: {
+            type: String as () => InputType,
+            default: 'text'
+        }
 
-const props = defineProps<{
-    text: string,
-    type: InputType,
-    name: string,
-    placeholder: string,
-    id: string,
-    value: string
-
-}>()
+    },
+    setup() {
+        return {}
+    }
+})
 
 </script>
 <style scoped lang="scss">
