@@ -11,6 +11,10 @@ import { faEye } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons'
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faCannabis } from '@fortawesome/free-solid-svg-icons'
+import { faDroplet } from '@fortawesome/free-solid-svg-icons'
+import { faCampground } from '@fortawesome/free-solid-svg-icons'
 
 
 library.add(
@@ -25,6 +29,10 @@ library.add(
     faTrash,
     faAnglesLeft,
     faArrowRightFromBracket,
+    faXmark,
+    faCannabis,
+    faDroplet,
+    faCampground,
 )
 
 export { FontAwesomeIcon }

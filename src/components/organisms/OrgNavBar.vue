@@ -12,13 +12,15 @@
     </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import AtIcons from '@/components/atoms/AtIcons.vue'
 import MolBottomModal from '@/components/molecules/MolBottomModal.vue'
+import { useStoreModals } from '@/store/StoreModals'
 export default defineComponent({
     name: 'NavBar',
     components: { AtIcons, MolBottomModal },
     setup() {
+        const showModal = useStoreModals();
         const navItens = [
             {
                 icon: ['fas', 'house'],
@@ -32,7 +34,8 @@ export default defineComponent({
                 icon: ['far', 'square-plus'],
                 text: 'New',
                 action: () => {
-                    showModal()
+                    showModal.toggleModal()
+                    console.log(showModal.isActive);
                 }
             },
             {
@@ -44,14 +47,13 @@ export default defineComponent({
                 text: 'Profile'
             },
         ]
-        const showModal = () => {
-            console.log("Show Modal");
-        }
+
         const handleAction = (item: any) => {
             if (item.action) {
                 item.action()
             }
         }
+
         return {
             navItens, handleAction, showModal
         };
@@ -60,16 +62,17 @@ export default defineComponent({
 </script>
 <style scoped lang="scss">
 .org-navBar {
-    background: var(--color-primary);
+    background-color: white;
     padding: 1em 0em;
     display: flex;
     justify-content: center;
+    position: relative;
 
     &__list-container {
         display: flex;
         justify-content: space-between;
         padding: 0;
-        color: var(--color-white);
+        color: var(--color-primary);
     }
 
     &__itens {

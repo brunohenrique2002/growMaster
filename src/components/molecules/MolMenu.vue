@@ -1,7 +1,7 @@
 <template>
    <div class="menu">
       <AtIcons @click="showSide" :icon="['fas', 'bars']" size="2x" />
-      <div class="menu__sidebar" :class="{ active: menuStore.isActive }">
+      <div class="menu__sidebar" :class="{ active: sideStore.isActive }">
          <div class="menu__sidebar-header">
             <h1>Side Grow</h1>
             <AtIcons @click="showSide" :icon="['fas', 'angles-left']" size="2x" />
@@ -20,13 +20,13 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
 import { useRouter } from 'vue-router';
-import { useMenuStore } from '@/store/Menu'
+import { useStoreModals } from '@/store/StoreModals'
 import AtIcons from '@/components/atoms/AtIcons.vue'
 export default defineComponent({
    components: { AtIcons },
    setup() {
       const router = useRouter();
-      const menuStore = useMenuStore();
+      const sideStore = useStoreModals();
 
       const sideList = ref([
          {
@@ -44,7 +44,7 @@ export default defineComponent({
       ])
 
       const showSide = () => {
-         menuStore.showSide();
+         sideStore.showSide();
       }
       const handleAction = (item: any) => {
          if (item.action) {
@@ -53,17 +53,17 @@ export default defineComponent({
       };
 
       watch(
-         () => menuStore.isActive,
+         () => sideStore.isActive,
 
          (newValue) => {
             const body = document.querySelector('body');
             if (body) {
-               body.style.overflow = 'hidden';
+               body.style.overflow = newValue ? 'hidden' : '';
             }
          }
       );
 
-      return { menuStore, showSide, sideList, handleAction }
+      return { sideStore, showSide, sideList, handleAction }
    }
 })
 </script>
