@@ -33,7 +33,7 @@ export default defineComponent({
         text-decoration: none;
         padding: 0.9em 1.2em;
         border: none;
-        border-radius: 7px;
+        border-radius: 5px;
         width: 100%;
         cursor: pointer;
         font-weight: bold;
