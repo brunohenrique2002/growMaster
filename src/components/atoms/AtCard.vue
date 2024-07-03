@@ -26,8 +26,8 @@ export default defineComponent({
     width: 200px;
     color: var(--color-white);
     background-color: var(--color-primary);
-    padding: 1.6rem;
-    margin-bottom: 1rem;
+    padding: 16px;
+    margin-bottom: 10px;
 
     &__total {
         font-size: 3.6rem;
@@ -36,7 +36,7 @@ export default defineComponent({
     &__total-plants {
         font-size: 1.4rem;
         font-weight: bold;
-        margin-bottom: .5rem;
+        margin-bottom: 5px;
     }
 }
 </style>

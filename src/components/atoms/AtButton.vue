@@ -31,7 +31,7 @@ export default defineComponent({
         background-color: var(--color-primary);
         color: var(--color-white);
         text-decoration: none;
-        padding: 0.9em 1.2em;
+        padding: 9px 12px;
         border: none;
         border-radius: 5px;
         width: 100%;

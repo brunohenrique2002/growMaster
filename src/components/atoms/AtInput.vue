@@ -47,16 +47,17 @@ export default defineComponent({
 .grow-input {
     display: flex;
     flex-direction: column;
-    margin-top: 2em;
+    margin-top: 20px;
 
     &__label {
-        margin-bottom: 0.6em;
+        margin-bottom: 6px;
         font-weight: bold;
         color: var(--color-primary);
+        font-size: 1.4rem;
     }
 
     &__input {
-        padding: 0.9em;
+        padding: 9px;
         border-radius: 0;
         border: none;
         border-bottom: 2px solid var(--color-lightgreen);

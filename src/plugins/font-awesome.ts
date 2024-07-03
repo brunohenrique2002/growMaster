@@ -15,6 +15,10 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import { faCannabis } from '@fortawesome/free-solid-svg-icons'
 import { faDroplet } from '@fortawesome/free-solid-svg-icons'
 import { faCampground } from '@fortawesome/free-solid-svg-icons'
+import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCircleCheck } from '@fortawesome/free-regular-svg-icons'
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 
 
 library.add(
@@ -33,6 +37,10 @@ library.add(
     faCannabis,
     faDroplet,
     faCampground,
+    faCheck,
+    faCircleCheck,
+    faExclamationTriangle,
+    faCircleExclamation
 )
 
 export { FontAwesomeIcon }

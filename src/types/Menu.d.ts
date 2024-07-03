@@ -1,4 +1,3 @@
-// Menu.d.ts
 declare module '@/store/Menu' {
     import { Store } from 'pinia';
 
