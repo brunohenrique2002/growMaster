@@ -17,7 +17,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, computed } from 'vue'
 import AtIcons from '@/components/atoms/AtIcons.vue'
 import { useStoreModals } from '@/store/StoreModals'
 

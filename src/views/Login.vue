@@ -1,20 +1,36 @@
 <template>
   <div class="login">
     <div class="login__img">
-      <img class="login__logo" src="@/assets/img/grow-master-logo.jpeg" alt="Logo Grow">
+      <img class="login__logo" src="@/assets/img/grow-master-logo.jpeg" alt="Logo Grow" />
     </div>
     <div class="login__form">
       <h1 class="login__welcome">Bem vindo</h1>
       <div class="login__input">
-        <AtInput type="text" text="Email" placeholder="Digite seu email" id="email" name="email" :value="email" />
-        <AtInput type="password" text="Senha" placeholder="Digite sua senha" id="password" name="password"
-          :value="password" />
-      </div>
-      <router-link to="/dashboard">
+        <AtInput
+          type="text"
+          text="Email"
+          placeholder="Digite seu email"
+          id="email"
+          name="email"
+          v-model="email"
+          @blur="checksEmail"
+        />
+        <AtInput
+          type="password"
+          text="Senha"
+          placeholder="Digite sua senha"
+          id="password"
+          name="password"
+          v-model="password"
+          @blur="checksPassword"
+        />
         <div class="login__button">
-          <AtButton text="Login" />
+          <AtButton text="Login" @click="SendLogin" :disabled="isDisabled" />
         </div>
-      </router-link>
+        <div class="login__message-error">
+          <p>{{ messageError }}</p>
+        </div>
+      </div>
       <div class="login__forgot">
         <p>Esqueceu sua senha?</p>
       </div>
@@ -22,30 +38,81 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import AtInput from '@/components/atoms/AtInput.vue';
+import { defineComponent, ref } from 'vue'
+import AtInput from '@/components/atoms/AtInput.vue'
 import AtButton from '@/components/atoms/AtButton.vue'
-import { RouterLink } from 'vue-router'
+import { useRouter } from 'vue-router'
+import authService from '@/services/ApiService'
 export default defineComponent({
   name: 'Login',
+  components: { AtInput, AtButton },
   setup() {
-    const email = ref('');
-    const password = ref('');
-    return { email, password };
-  },
-  components: { AtInput, AtButton }
-});
+    const email = ref('')
+    const password = ref('')
+    const router = useRouter()
+    const messageError = ref('')
+    const isDisabled = ref(true)
+
+    const validateForm = () => {
+      if (email.value.length > 0 && email.value.length < 5) {
+        messageError.value = 'O email deve ter mais de 5 caracteres'
+      }
+      isDisabled.value = !!messageError.value
+    }
+    const checksEmail = () => {
+      messageError.value = !email.value ? 'Por favor, preencha o email' : ''
+      validateForm()
+    }
+    const checksPassword = () => {
+      messageError.value = !password.value ? 'Por favor, preencha a senha' : ''
+      validateForm()
+    }
+
+    const SendLogin = async () => {
+      if (!email.value || !password.value) {
+        messageError.value = 'Por favor, preencha todos os campos.'
+        validateForm()
+        return
+      }
+      const data = {
+        login: email.value,
+        password: password.value
+      }
+      try {
+        const response = await authService.login(data)
+        router.push('/dashboard')
+      } catch (error) {
+        messageError.value = 'Email ou senha incorretos'
+        console.error('Erro ao fazer login:', error)
+      }
+    }
+
+    return {
+      email,
+      password,
+      SendLogin,
+      checksEmail,
+      checksPassword,
+      messageError,
+      isDisabled
+    }
+  }
+})
 </script>
 <style scoped lang="scss">
 .login {
-
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: normal;
   height: 100vh;
-
+  &__message-error {
+    margin-top: 8px;
+    color: var(--color-error);
+    p {
+      font-size: 1.2rem;
+    }
+  }
   &__forgot {
     display: flex;
     justify-content: flex-end;
@@ -65,7 +132,6 @@ export default defineComponent({
     font-size: 1.8em;
     color: var(--color-primary);
   }
-
 
   &__logo {
     width: 300px;

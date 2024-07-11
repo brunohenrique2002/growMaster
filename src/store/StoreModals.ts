@@ -17,5 +17,5 @@ export const useStoreModals = defineStore('modals', {
     },
     getters: {
         
-    }
+    }   
 });
