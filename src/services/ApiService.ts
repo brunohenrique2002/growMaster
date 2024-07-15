@@ -42,13 +42,13 @@ const login = async (data: Login) => {
     throw new Error('Erro ao fazer login')
   }
 }
-const ListPlant = () => {
+const listPlant = () => {
   return instance.get(`${PLANT_LIST}/plants`)
 }
 
 const authService = {
   login,
-  ListPlant
+  listPlant
 }
 
 export default authService

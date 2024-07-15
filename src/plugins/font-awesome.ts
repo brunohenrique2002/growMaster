@@ -19,28 +19,31 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
-
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
+import { faAnglesRight } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
-    faUser,
-    faSearch,
-    faBars,
-    faSquarePlus,
-    faGear,
-    faHouse,
-    faComment,
-    faEye,
-    faTrash,
-    faAnglesLeft,
-    faArrowRightFromBracket,
-    faXmark,
-    faCannabis,
-    faDroplet,
-    faCampground,
-    faCheck,
-    faCircleCheck,
-    faExclamationTriangle,
-    faCircleExclamation
+  faUser,
+  faSearch,
+  faBars,
+  faSquarePlus,
+  faGear,
+  faHouse,
+  faComment,
+  faEye,
+  faTrash,
+  faAnglesLeft,
+  faArrowRightFromBracket,
+  faXmark,
+  faCannabis,
+  faDroplet,
+  faCampground,
+  faCheck,
+  faCircleCheck,
+  faExclamationTriangle,
+  faCircleExclamation,
+  faAngleLeft,
+  faAnglesRight
 )
 
 export { FontAwesomeIcon }

@@ -1,10 +1,14 @@
 <template>
   <div class="home">
-    <h1 class="home__title">Dashboard, {{ userStore.name }}</h1>
+    <h1 class="home__title">Dashboard</h1>
     <AtCard :total="totalPlant" class="home__card" />
     <AtHistoricRecent :historicRecent="historic" />
     <div class="home__table">
       <MolTable :titles="tableHeaders" :items="tableRows" />
+      <div class="home__icons">
+        <AtIcons class="home__icon-pages" :icon="['fas', 'angles-left']" />
+        <AtIcons class="home__icon-pages" :icon="['fas', 'angles-right']" />
+      </div>
     </div>
   </div>
 </template>
@@ -12,12 +16,14 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import MolTable from '@/components/molecules/MolTable.vue'
 import AtCard from '@/components/atoms/AtCard.vue'
+import AtIcons from '@/components/atoms/AtIcons.vue'
 import AtHistoricRecent from '@/components/atoms/AtHistoricRecent.vue'
 import { useUserStore } from '@/store/StoreUser'
 import authService from '@/services/ApiService'
+
 export default defineComponent({
   name: 'Home',
-  components: { MolTable, AtCard, AtHistoricRecent },
+  components: { MolTable, AtCard, AtHistoricRecent, AtIcons },
   setup() {
     const userStore = useUserStore()
     const totalPlant = ref(0)
@@ -33,14 +39,14 @@ export default defineComponent({
       return date.toLocaleDateString()
     }
     const getApi = () => {
-      authService.ListPlant().then((response) => {
-        tableRows.value = response.data.map((item) => ({
+      authService.listPlant().then((response) => {
+        const listPlants = response.data.data
+        tableRows.value = listPlants.map((item) => ({
           Grow: item.space,
           Planta: item.name,
-          'Última rega': convertTimestampToDate(item.last_water),
-          id: item.id
+          'Última rega': convertTimestampToDate(item.last_water)
         }))
-        totalPlant.value = response.data.length
+        totalPlant.value = listPlants.length
       })
     }
     onMounted(getApi)
@@ -51,7 +57,15 @@ export default defineComponent({
 <style lang="scss" scoped>
 .home {
   margin: 1.5rem;
-
+  &__icon-pages {
+    margin-right: 20px;
+    font-size: 1.3rem;
+    color: var(--color-primary);
+  }
+  &__icons {
+    display: flex;
+    justify-content: center;
+  }
   &__table {
     border: 1px solid var(--color-lightgreen);
     padding: 1rem;

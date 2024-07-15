@@ -39,6 +39,7 @@ export default defineComponent({
         text: 'Logout',
         action: () => {
           sideStore.isActive = false
+          userStore.clear()
           router.push('/')
         }
       }
