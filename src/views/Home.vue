@@ -13,15 +13,14 @@ import { defineComponent, onMounted, ref } from 'vue'
 import MolTable from '@/components/molecules/MolTable.vue'
 import AtCard from '@/components/atoms/AtCard.vue'
 import AtHistoricRecent from '@/components/atoms/AtHistoricRecent.vue'
-import { useUserStore } from '@/store/StoreToken'
+import { useUserStore } from '@/store/StoreUser'
 import authService from '@/services/ApiService'
 export default defineComponent({
   name: 'Home',
   components: { MolTable, AtCard, AtHistoricRecent },
   setup() {
     const userStore = useUserStore()
-    console.log(userStore)
-    const totalPlant = ref(45)
+    const totalPlant = ref(0)
     const historic = [
       { name: 'Purple', description: 'Criação de nova planta.' },
       { name: 'Zombie', description: 'Rega com 100ml de água.' }
@@ -35,16 +34,16 @@ export default defineComponent({
     }
     const getApi = () => {
       authService.ListPlant().then((response) => {
-        console.log(response.data)
         tableRows.value = response.data.map((item) => ({
           Grow: item.space,
           Planta: item.name,
-          'Última rega': convertTimestampToDate(item.last_water)
+          'Última rega': convertTimestampToDate(item.last_water),
+          id: item.id
         }))
+        totalPlant.value = response.data.length
       })
     }
     onMounted(getApi)
-    console.log('Nome no userStore:', userStore.name)
     return { tableRows, tableHeaders, totalPlant, historic, userStore }
   }
 })

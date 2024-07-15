@@ -37,7 +37,6 @@ export default defineComponent({
     const activeWarning = useStoreModals()
 
     const sendForm = () => {
-      console.log('Enviado')
       emit('warning')
     }
     const closeModal = () => {

@@ -22,14 +22,13 @@ import { defineComponent, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStoreModals } from '@/store/StoreModals'
 import AtIcons from '@/components/atoms/AtIcons.vue'
-import { useUserStore } from '@/store/StoreToken'
-
+import { useUserStore } from '@/store/StoreUser'
 export default defineComponent({
   components: { AtIcons },
   setup() {
+    const userStore = useUserStore()
     const router = useRouter()
     const sideStore = useStoreModals()
-    const userStore = useUserStore()
     const sideList = ref([
       {
         icon: ['fas', 'house'],
@@ -40,8 +39,6 @@ export default defineComponent({
         text: 'Logout',
         action: () => {
           sideStore.isActive = false
-          userStore.clear()
-          localStorage.removeItem('token')
           router.push('/')
         }
       }

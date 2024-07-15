@@ -43,6 +43,7 @@ import AtInput from '@/components/atoms/AtInput.vue'
 import AtButton from '@/components/atoms/AtButton.vue'
 import { useRouter } from 'vue-router'
 import authService from '@/services/ApiService'
+
 export default defineComponent({
   name: 'Login',
   components: { AtInput, AtButton },
@@ -81,6 +82,7 @@ export default defineComponent({
       try {
         const response = await authService.login(data)
         router.push('/dashboard')
+        return response
       } catch (error) {
         messageError.value = 'Email ou senha incorretos'
         console.error('Erro ao fazer login:', error)
