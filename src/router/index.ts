@@ -3,6 +3,7 @@ import AuthLayout from '@/layouts/AuthLayout.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 import Login from '@/views/Login.vue'
 import Home from '@/views/Home.vue'
+import Grows from '@/views/Grows.vue'
 import { useUserStore } from '@/store/StoreUser'
 
 function isAuthenticated() {
@@ -38,6 +39,11 @@ const router = createRouter({
           path: '',
           name: 'home',
           component: Home
+        },
+        {
+          path: 'grows',
+          name: 'grows',
+          component: Grows
         }
       ]
     }

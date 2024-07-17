@@ -1,12 +1,12 @@
 import axios from 'axios'
 import { useUserStore } from '@/store/StoreUser'
 import { Login } from '@/types/Login'
+import { Grows } from '@/types/Grows'
 
-const LOGIN_APP = 'https://growmaster.free.beeceptor.com'
-const PLANT_LIST = 'https://growmaster.free.beeceptor.com'
+const API_BASE = 'https://mysterious-eyrie-69850-35adda475f99.herokuapp.com/api'
 
 const instance = axios.create({
-  baseURL: LOGIN_APP,
+  baseURL: API_BASE,
   headers: {
     'Content-Type': 'application/json'
   }
@@ -27,28 +27,37 @@ instance.interceptors.request.use(
 
 const login = async (data: Login) => {
   try {
-    const response = await axios.post(`${LOGIN_APP}/login`, data)
-
-    const { token, name, email } = response.data.data
+    const response = await axios.post(`${API_BASE}/user`, data)
 
     const userStore = useUserStore()
 
+    const { email, name, token } = response.data
+
+    userStore.setEmail(name)
+    userStore.setName(email)
     userStore.setToken(token)
-    userStore.setName(name)
-    userStore.setEmail(email)
 
     return response
   } catch (error) {
     throw new Error('Erro ao fazer login')
   }
 }
+const addGrow = (data: Grows) => {
+  const response = instance.post(`${API_BASE}/grows`, data)
+  return response
+}
 const listPlant = () => {
-  return instance.get(`${PLANT_LIST}/plants`)
+  return instance.get(`${API_BASE}/plants`)
+}
+const listGrow = () => {
+  return instance.get(`${API_BASE}/grows`)
 }
 
 const authService = {
   login,
-  listPlant
+  listPlant,
+  listGrow,
+  addGrow
 }
 
 export default authService

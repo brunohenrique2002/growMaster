@@ -1,5 +1,9 @@
 <template>
-  <div class="background" @click="closeModal"></div>
+  <div
+    class="background"
+    @click="closeModal"
+    :class="{ active: activeWarning.showModalListPlant }"
+  ></div>
   <div class="modal">
     <div class="modal__header">
       <h1 class="modal__title">{{ text }}</h1>
@@ -15,7 +19,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import AtIcons from '@/components/atoms/AtIcons.vue'
 import AtButton from '../atoms/AtButton.vue'
 import { useStoreModals } from '@/store/StoreModals'
@@ -26,7 +30,7 @@ export default defineComponent({
     AtIcons,
     AtButton
   },
-  emits: ['showModal', 'warning'],
+  emits: ['closeModal', 'send'],
   props: {
     text: {
       type: String,
@@ -37,10 +41,10 @@ export default defineComponent({
     const activeWarning = useStoreModals()
 
     const sendForm = () => {
-      emit('warning')
+      emit('send')
     }
     const closeModal = () => {
-      emit('showModal')
+      emit('closeModal')
     }
     return { closeModal, sendForm, activeWarning }
   }
@@ -54,6 +58,7 @@ export default defineComponent({
   background-color: #f5f5f5;
   padding: 2rem 1.5rem;
   border-radius: 5px;
+  z-index: 2;
 
   &__close {
     font-size: 2.4rem;
@@ -77,10 +82,18 @@ export default defineComponent({
 }
 
 .background {
-  background-color: #818181c7;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
+  // background-color: #818181c7;
+  // width: 100%;
+  // height: 100%;
+  // position: fixed;
+  // top: 0;
+  &.active {
+    background-color: #818181c7;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 2;
+  }
 }
 </style>

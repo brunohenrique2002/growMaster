@@ -1,21 +1,27 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
 export const useStoreModals = defineStore('modals', {
-    state: () => ({
-        isActive: false,
-        isActiveSideBottom: false,
-        showModal: false,
-        activeWarning: false,
-    }),
-    actions: {
-        showSide() {
-            this.isActive = !this.isActive;
-        },
-        toggleModal() {
-            this.isActiveSideBottom = !this.isActiveSideBottom;
-        },
+  state: () => ({
+    isActiveMenu: false,
+    isActiveSideBottom: false,
+    showModalListPlant: false,
+    showModalListGrow: false
+    // activeWarning: false
+  }),
+  actions: {
+    showModalGrow() {
+      this.showModalListGrow = !this.showModalListGrow
     },
-    getters: {
-        
-    }   
-});
+
+    showModalPlant() {
+      this.showModalListPlant = !this.showModalListPlant
+    },
+    showSide() {
+      this.isActiveMenu = !this.isActiveMenu
+    },
+    toggleModal() {
+      this.isActiveSideBottom = !this.isActiveSideBottom
+    }
+  },
+  getters: {}
+})

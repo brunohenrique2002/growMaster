@@ -14,6 +14,7 @@ export const useUserStore = defineStore('user', {
     },
     setName(name: string) {
       this.name = name
+      localStorage.setItem('name', name)
     },
     setEmail(email: string) {
       this.email = email
@@ -23,6 +24,7 @@ export const useUserStore = defineStore('user', {
       this.name = null
       this.email = null
       localStorage.removeItem('token')
+      localStorage.removeItem('name')
     }
   }
 })

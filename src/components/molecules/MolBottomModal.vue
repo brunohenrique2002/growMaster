@@ -1,10 +1,9 @@
 <template>
-  <AtWarnings v-show="activeModals.activeWarning" @warning="triggerWarnings" type="error" />
+  <!-- <AtWarnings v-show="activeModals.activeWarning" @warning="triggerWarnings" type="error" /> -->
   <MolModal
     text="Adicionar planta"
-    v-if="activeModals.showModal"
-    @showModal="handleShowModal"
-    @warning="triggerWarnings"
+    v-if="activeModals.showModalListPlant"
+    @closeModal="handleShowModal"
   >
     <AtInput
       type="text"
@@ -24,14 +23,6 @@
     />
     <AtInput
       type="date"
-      text="Data de criação"
-      placeholder="12/05/2024"
-      id="date"
-      name="date"
-      :value="date"
-    />
-    <AtInput
-      type="file"
       text="Data de criação"
       placeholder="12/05/2024"
       id="date"
@@ -70,17 +61,17 @@ import AtIcons from '@/components/atoms/AtIcons.vue'
 import { useStoreModals } from '@/store/StoreModals'
 import MolModal from '@/components/molecules/MolModal.vue'
 import AtInput from '@/components/atoms/AtInput.vue'
-import AtWarnings from '@/components/atoms/AtWarnings.vue'
+// import AtWarnings from '@/components/atoms/AtWarnings.vue'
 export default defineComponent({
   name: 'MolmodalStore',
   components: {
     AtIcons,
     MolModal,
-    AtInput,
-    AtWarnings
+    AtInput
+    // AtWarnings
   },
 
-  setup(props, { emit }) {
+  setup() {
     const activeModals = useStoreModals()
     const name = ref('')
     const especie = ref('')
@@ -103,18 +94,18 @@ export default defineComponent({
       }
     ])
     const triggerWarnings = () => {
-      activeModals.showModal = false
-      activeModals.activeWarning = true
+      activeModals.showModalPlant()
+      // activeModals.activeWarning = true
     }
     const openModal = () => {
-      activeModals.showModal = true
+      activeModals.showModalPlant()
 
-      if (activeModals.showModal) {
-        activeModals.isActiveSideBottom = false
-      }
+      // if (activeModals.showModalListPlant) {
+      //   activeModals.toggleModal()
+      // }
     }
     const handleShowModal = (value: boolean) => {
-      activeModals.showModal = value
+      activeModals.showModalListPlant = value
     }
     const toggleModal = () => {
       activeModals.toggleModal()
@@ -126,7 +117,7 @@ export default defineComponent({
     }
 
     watch(
-      () => [activeModals.isActiveSideBottom, activeModals.showModal],
+      () => [activeModals.isActiveSideBottom, activeModals.showModalListPlant],
 
       ([newValue, otherValue]) => {
         const body = document.querySelector('body')
@@ -174,10 +165,10 @@ export default defineComponent({
   box-shadow: 0px -7px 9px -9px rgba(0, 0, 0, 0.75);
   border-radius: 10px 10px 0 0;
   border-bottom: 1px solid var(--color-primary);
-
   &.active {
     transition: bottom 0.2s ease;
     bottom: 86px;
+    z-index: 1;
   }
 
   &__text-add {

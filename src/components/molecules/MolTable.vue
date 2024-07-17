@@ -1,25 +1,32 @@
 <template>
-  <table class="table">
-    <thead>
-      <tr>
-        <th v-for="(title, index) in titles" :key="index">{{ title }}</th>
-      </tr>
-    </thead>
+  <div class="table-box">
+    <table class="table">
+      <thead>
+        <tr>
+          <th v-for="(title, index) in titles" :key="index">{{ title }}</th>
+        </tr>
+      </thead>
 
-    <tbody>
-      <tr v-for="(item, index) in items" :key="index">
-        <td v-for="(title, index) in titles" :key="index">
-          <span v-if="title === 'Ações'">
-            <AtIcons class="table__icons" :icon="['fas', 'eye']" />
-            <AtIcons class="table__icons" :icon="['fas', 'trash']" />
-          </span>
-          <span v-else>
-            {{ item[title] }}
-          </span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <tbody>
+        <tr v-for="(item, index) in items" :key="index">
+          <td v-for="(title, index) in titles" :key="index">
+            <span v-if="title === 'Ações'">
+              <AtIcons class="table__icons" :icon="['fas', 'eye']" />
+              <AtIcons class="table__icons" :icon="['fas', 'trash']" />
+            </span>
+            <span v-else>
+              {{ item[title] }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table__arrow-icons">
+      <AtIcons class="table__icon-pages" :icon="['fas', 'angles-left']" />
+      <div class="table__icon-space"></div>
+      <AtIcons class="table__icon-pages" :icon="['fas', 'angles-right']" />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -49,6 +56,11 @@ export default defineComponent({
 </script>
 
 <style scoped lang="scss">
+.table-box {
+  border: 1px solid var(--color-lightgreen);
+  padding: 1rem;
+  border-radius: 1rem;
+}
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -56,6 +68,19 @@ export default defineComponent({
   flex-direction: column;
   margin-bottom: 4rem;
 
+  &__arrow-icons {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+  }
+
+  &__icon-space {
+    padding: 0 10px;
+  }
+  &__icon-pages {
+    font-size: 1.3rem;
+    color: var(--color-primary);
+  }
   th,
   td {
     padding: 1em;

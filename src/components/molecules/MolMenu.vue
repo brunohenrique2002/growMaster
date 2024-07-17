@@ -1,7 +1,7 @@
 <template>
   <div class="menu">
     <AtIcons @click="showSide" :icon="['fas', 'bars']" size="2x" />
-    <div class="menu__sidebar" :class="{ active: sideStore.isActive }">
+    <div class="menu__sidebar" :class="{ active: sideStore.isActiveMenu }">
       <div class="menu__sidebar-header">
         <h1>Side Grow</h1>
         <AtIcons @click="showSide" :icon="['fas', 'angles-left']" size="2x" />
@@ -32,13 +32,17 @@ export default defineComponent({
     const sideList = ref([
       {
         icon: ['fas', 'house'],
-        text: 'Home'
+        text: 'Home',
+        action: () => {
+          sideStore.showSide()
+          router.push('/dashboard')
+        }
       },
       {
         icon: ['fas', 'arrow-right-from-bracket'],
         text: 'Logout',
         action: () => {
-          sideStore.isActive = false
+          sideStore.showSide()
           userStore.clear()
           router.push('/')
         }
@@ -55,7 +59,7 @@ export default defineComponent({
     }
 
     watch(
-      () => sideStore.isActive,
+      () => sideStore.isActiveMenu,
 
       (newValue) => {
         const body = document.querySelector('body')

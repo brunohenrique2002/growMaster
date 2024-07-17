@@ -6,7 +6,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faSquarePlus } from '@fortawesome/free-regular-svg-icons'
 import { faGear } from '@fortawesome/free-solid-svg-icons'
 import { faHouse } from '@fortawesome/free-solid-svg-icons'
-import { faComment } from '@fortawesome/free-regular-svg-icons'
+import { faSeedling } from '@fortawesome/free-solid-svg-icons'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { faAnglesLeft } from '@fortawesome/free-solid-svg-icons'
@@ -29,7 +29,7 @@ library.add(
   faSquarePlus,
   faGear,
   faHouse,
-  faComment,
+  faSeedling,
   faEye,
   faTrash,
   faAnglesLeft,

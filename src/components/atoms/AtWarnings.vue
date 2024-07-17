@@ -19,7 +19,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import AtIcons from '@/components/atoms/AtIcons.vue'
-import { useStoreModals } from '@/store/StoreModals'
+// import { useStoreModals } from '@/store/StoreModals'
 
 export default defineComponent({
   name: 'AtWarnings',
@@ -31,9 +31,9 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const activeWarning = useStoreModals()
+    // const activeWarning = useStoreModals()
     const closeWarning = () => {
-      activeWarning.activeWarning = false
+      // activeWarning.activeWarning = false
     }
 
     const warningClass = computed(() => {

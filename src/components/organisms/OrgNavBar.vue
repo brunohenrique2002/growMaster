@@ -4,8 +4,8 @@
     <div class="org-navBar__container">
       <ul class="org-navBar__list-container">
         <li
-          v-for="(item, index) in navItens"
-          :key="index"
+          v-for="(item, navIndex) in navItens"
+          :key="navIndex"
           class="org-navBar__itens"
           @click="handleAction(item)"
         >
@@ -21,15 +21,20 @@ import { defineComponent } from 'vue'
 import AtIcons from '@/components/atoms/AtIcons.vue'
 import MolBottomModal from '@/components/molecules/MolBottomModal.vue'
 import { useStoreModals } from '@/store/StoreModals'
+import { useRouter } from 'vue-router'
 export default defineComponent({
   name: 'NavBar',
   components: { AtIcons, MolBottomModal },
   setup() {
     const showModal = useStoreModals()
+    const router = useRouter()
     const navItens = [
       {
         icon: ['fas', 'house'],
-        text: 'Home'
+        text: 'Home',
+        action: () => {
+          router.push('/dashboard')
+        }
       },
       {
         icon: ['fas', 'magnifying-glass'],
@@ -43,12 +48,11 @@ export default defineComponent({
         }
       },
       {
-        icon: ['far', 'comment'],
-        text: 'Messages'
-      },
-      {
-        icon: ['far', 'user'],
-        text: 'Profile'
+        icon: ['fas', 'seedling'],
+        text: 'Grows',
+        action: () => {
+          router.push('/dashboard/grows')
+        }
       }
     ]
 
