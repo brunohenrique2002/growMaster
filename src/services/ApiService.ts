@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useUserStore } from '@/store/StoreUser'
 import { Login } from '@/types/Login'
-import { dataGrows } from '@/types/Grows'
+import { dataGrows, deleteGrow } from '@/types/Grows'
 
 const API_BASE = 'https://mysterious-eyrie-69850-35adda475f99.herokuapp.com/api'
 
@@ -46,6 +46,10 @@ const addGrow = (data: dataGrows) => {
   const response = instance.post(`${API_BASE}/grows`, data)
   return response
 }
+const deleteGrow = (data: deleteGrow) => {
+  const response = instance.post(`${API_BASE}/grows/delete`, data)
+  return response
+}
 const listPlant = () => {
   return instance.get(`${API_BASE}/plants`)
 }
@@ -57,7 +61,8 @@ const authService = {
   login,
   listPlant,
   listGrow,
-  addGrow
+  addGrow,
+  deleteGrow
 }
 
 export default authService

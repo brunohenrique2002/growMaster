@@ -29,7 +29,7 @@
         <AtButton class="grow__button-add" text="Adicionar grow" @click="showModal" />
       </div>
       <div class="grow__list-grows">
-        <MolTable :titles="tableHeaders" :items="tableRows" />
+        <MolTable :titles="tableHeaders" :items="tableRows" @deleteItem="deleteGrow" />
       </div>
     </div>
   </div>
@@ -38,7 +38,6 @@
 import { defineComponent, onMounted, computed, ref } from 'vue'
 import MolTable from '@/components/molecules/MolTable.vue'
 import MolModal from '@/components/molecules/MolModal.vue'
-import authService from '@/services/ApiService'
 import AtButton from '@/components/atoms/AtButton.vue'
 import AtInput from '@/components/atoms/AtInput.vue'
 import { useStoreModals } from '@/store/StoreModals'
@@ -53,7 +52,6 @@ export default defineComponent({
     const growStore = useGrowsStore()
     const activeModal = useStoreModals()
     const tableHeaders = ['Nome grow', 'Descrição', 'Ações']
-    // const tableRows = ref([])
     const showModal = () => {
       activeModal.showModalGrow()
     }
@@ -70,9 +68,14 @@ export default defineComponent({
     const tableRows = computed(() =>
       growStore.grows.map((item: dataGrows) => ({
         'Nome grow': item.name || 'Vazio',
-        Descrição: item.description || 'Vazio'
+        Descrição: item.description || 'Vazio',
+        id: item.id
       }))
     )
+
+    const deleteGrow = (id: number) => {
+      growStore.deleteGrow({ id })
+    }
 
     onMounted(() => {
       growStore.fetchListGrows()
@@ -81,6 +84,7 @@ export default defineComponent({
       showModal,
       handleShowModal,
       sendForm,
+      deleteGrow,
       tableRows,
       tableHeaders,
       activeModal,
