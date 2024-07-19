@@ -7,13 +7,12 @@
   </div>
 </template>
 <script>
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, computed, ref } from 'vue'
 import MolTable from '@/components/molecules/MolTable.vue'
 import AtCard from '@/components/atoms/AtCard.vue'
 import AtHistoricRecent from '@/components/atoms/AtHistoricRecent.vue'
 import { useUserStore } from '@/store/StoreUser'
 import authService from '@/services/ApiService'
-
 export default defineComponent({
   name: 'Home',
   components: { MolTable, AtCard, AtHistoricRecent },

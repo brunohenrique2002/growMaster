@@ -35,23 +35,25 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, computed, ref } from 'vue'
 import MolTable from '@/components/molecules/MolTable.vue'
 import MolModal from '@/components/molecules/MolModal.vue'
 import authService from '@/services/ApiService'
 import AtButton from '@/components/atoms/AtButton.vue'
 import AtInput from '@/components/atoms/AtInput.vue'
 import { useStoreModals } from '@/store/StoreModals'
-
+import { useGrowsStore } from '@/store/StoreGrows'
+import { dataGrows } from '@/types/Grows'
 export default defineComponent({
   name: 'grows',
   components: { MolTable, AtButton, MolModal, AtInput },
   setup() {
     const name = ref('')
     const description = ref('')
+    const growStore = useGrowsStore()
     const activeModal = useStoreModals()
     const tableHeaders = ['Nome grow', 'Descrição', 'Ações']
-    const tableRows = ref([])
+    // const tableRows = ref([])
     const showModal = () => {
       activeModal.showModalGrow()
     }
@@ -63,18 +65,18 @@ export default defineComponent({
         name: name.value,
         description: description.value
       }
-      authService.addGrow(data)
+      growStore.createGrow(data)
     }
-    const getGrows = () => {
-      authService.listGrow().then((response) => {
-        const listGrow = response.data
-        tableRows.value = listGrow.map((item: any) => ({
-          'Nome grow': item.name || 'Vazio',
-          Descrição: item.description || 'Vazio'
-        }))
-      })
-    }
-    onMounted(getGrows)
+    const tableRows = computed(() =>
+      growStore.grows.map((item: dataGrows) => ({
+        'Nome grow': item.name || 'Vazio',
+        Descrição: item.description || 'Vazio'
+      }))
+    )
+
+    onMounted(() => {
+      growStore.fetchListGrows()
+    })
     return {
       showModal,
       handleShowModal,
@@ -82,6 +84,7 @@ export default defineComponent({
       tableRows,
       tableHeaders,
       activeModal,
+      growStore,
       name,
       description
     }

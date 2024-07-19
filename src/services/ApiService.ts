@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useUserStore } from '@/store/StoreUser'
 import { Login } from '@/types/Login'
-import { Grows } from '@/types/Grows'
+import { dataGrows } from '@/types/Grows'
 
 const API_BASE = 'https://mysterious-eyrie-69850-35adda475f99.herokuapp.com/api'
 
@@ -42,7 +42,7 @@ const login = async (data: Login) => {
     throw new Error('Erro ao fazer login')
   }
 }
-const addGrow = (data: Grows) => {
+const addGrow = (data: dataGrows) => {
   const response = instance.post(`${API_BASE}/grows`, data)
   return response
 }
