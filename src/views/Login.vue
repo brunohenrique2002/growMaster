@@ -43,7 +43,7 @@ import AtInput from '@/components/atoms/AtInput.vue'
 import AtButton from '@/components/atoms/AtButton.vue'
 import { useRouter } from 'vue-router'
 import authService from '@/services/ApiService'
-
+import { useUserStore } from '@/store/StoreUser'
 export default defineComponent({
   name: 'Login',
   components: { AtInput, AtButton },
@@ -53,6 +53,7 @@ export default defineComponent({
     const router = useRouter()
     const messageError = ref('')
     const isDisabled = ref(true)
+    const userLogin = useUserStore()
 
     const validateForm = () => {
       if (email.value.length > 0 && email.value.length < 5) {
@@ -81,8 +82,7 @@ export default defineComponent({
       }
       try {
         const response = await authService.login(data)
-        router.push('/dashboard')
-        return response
+        // router.push('/dashboard')
       } catch (error) {
         messageError.value = 'Email ou senha incorretos'
         console.error('Erro ao fazer login:', error)
@@ -92,6 +92,7 @@ export default defineComponent({
     return {
       email,
       password,
+      userLogin,
       SendLogin,
       checksEmail,
       checksPassword,
