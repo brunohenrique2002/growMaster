@@ -76,7 +76,9 @@ export default defineComponent({
   padding: 1em 0em;
   display: flex;
   justify-content: center;
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 
   &__list-container {
     display: flex;

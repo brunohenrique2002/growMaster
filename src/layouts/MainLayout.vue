@@ -24,6 +24,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding: 80px 0;
 
   &__home {
     display: flex;
