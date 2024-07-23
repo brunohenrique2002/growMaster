@@ -82,7 +82,7 @@ export default defineComponent({
       }
       try {
         const response = await authService.login(data)
-        // router.push('/dashboard')
+        router.push('/dashboard')
       } catch (error) {
         messageError.value = 'Email ou senha incorretos'
         console.error('Erro ao fazer login:', error)
