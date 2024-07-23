@@ -2,7 +2,7 @@
   <div
     class="background"
     @click="closeModal"
-    :class="{ active: activeWarning.showModalListPlant }"
+    :class="{ active: useActiveBackground.isActiveBackground }"
   ></div>
   <div class="modal">
     <div class="modal__header">
@@ -38,7 +38,7 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    const activeWarning = useStoreModals()
+    const useActiveBackground = useStoreModals()
 
     const sendForm = () => {
       emit('send')
@@ -46,7 +46,7 @@ export default defineComponent({
     const closeModal = () => {
       emit('closeModal')
     }
-    return { closeModal, sendForm, activeWarning }
+    return { closeModal, sendForm, useActiveBackground }
   }
 })
 </script>
@@ -82,18 +82,11 @@ export default defineComponent({
 }
 
 .background {
-  // background-color: #818181c7;
-  // width: 100%;
-  // height: 100%;
-  // position: fixed;
-  // top: 0;
-  &.active {
-    background-color: #818181c7;
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    z-index: 2;
-  }
+  background-color: #818181c7;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 2;
 }
 </style>

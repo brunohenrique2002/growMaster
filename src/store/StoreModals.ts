@@ -5,10 +5,14 @@ export const useStoreModals = defineStore('modals', {
     isActiveMenu: false,
     isActiveSideBottom: false,
     showModalListPlant: false,
-    showModalListGrow: false
+    showModalListGrow: false,
+    isActiveBackground: false
     // activeWarning: false
   }),
   actions: {
+    activeBakground() {
+      this.isActiveBackground = !this.isActiveBackground
+    },
     showModalGrow() {
       this.showModalListGrow = !this.showModalListGrow
     },

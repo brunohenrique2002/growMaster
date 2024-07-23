@@ -2,6 +2,7 @@
   <div class="grow">
     <h1 class="grow__title">Grows</h1>
     <div class="grow__container">
+      <AtLoader :isLoaderActive="isActiveLoader" />
       <MolModal
         text="Adicionar planta"
         v-if="activeModal.showModalListGrow"
@@ -40,18 +41,20 @@ import MolTable from '@/components/molecules/MolTable.vue'
 import MolModal from '@/components/molecules/MolModal.vue'
 import AtButton from '@/components/atoms/AtButton.vue'
 import AtInput from '@/components/atoms/AtInput.vue'
+import AtLoader from '@/components/atoms/AtLoader.vue'
 import { useStoreModals } from '@/store/StoreModals'
 import { useGrowsStore } from '@/store/StoreGrows'
 import { dataGrows } from '@/types/Grows'
 export default defineComponent({
   name: 'grows',
-  components: { MolTable, AtButton, MolModal, AtInput },
+  components: { MolTable, AtButton, MolModal, AtInput, AtLoader },
   setup() {
     const name = ref('')
     const description = ref('')
     const growStore = useGrowsStore()
     const activeModal = useStoreModals()
     const tableHeaders = ['Nome grow', 'Descrição', 'Ações']
+
     const showModal = () => {
       activeModal.showModalGrow()
     }
@@ -72,6 +75,7 @@ export default defineComponent({
         id: item.id
       }))
     )
+    const isActiveLoader = computed(() => growStore.isLoaderActive)
 
     const deleteGrow = (id: number) => {
       growStore.deleteGrow({ id })
@@ -83,6 +87,7 @@ export default defineComponent({
     return {
       showModal,
       handleShowModal,
+      isActiveLoader,
       sendForm,
       deleteGrow,
       tableRows,

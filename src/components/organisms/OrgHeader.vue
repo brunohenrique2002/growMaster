@@ -32,9 +32,9 @@ export default defineComponent({
   background-color: var(--color-primary);
   display: flex;
   justify-content: center;
-  position: fixed;
-  width: 100%;
-  top: 0;
+  // position: fixed;
+  // width: 100%;
+  // top: 0;
 
   &__header {
     display: flex;

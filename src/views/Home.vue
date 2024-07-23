@@ -3,6 +3,7 @@
     <h1 class="home__title">Dashboard</h1>
     <AtCard :total="totalPlant" class="home__card" />
     <AtHistoricRecent :historicRecent="historic" />
+    <!-- <AtLoader :isLoaderActive="isActiveLoader" /> -->
     <MolTable :titles="tableHeaders" :items="tableRows" />
   </div>
 </template>
@@ -11,38 +12,41 @@ import { defineComponent, onMounted, computed, ref } from 'vue'
 import MolTable from '@/components/molecules/MolTable.vue'
 import AtCard from '@/components/atoms/AtCard.vue'
 import AtHistoricRecent from '@/components/atoms/AtHistoricRecent.vue'
+import AtLoader from '@/components/atoms/AtLoader.vue'
 import { useUserStore } from '@/store/StoreUser'
+import { usePlantsStore } from '@/store/StorePlants'
 import authService from '@/services/ApiService'
 export default defineComponent({
   name: 'Home',
   components: { MolTable, AtCard, AtHistoricRecent },
   setup() {
     const userStore = useUserStore()
+    const plantStore = usePlantsStore()
     const totalPlant = ref(0)
     const historic = [
       { name: 'Purple', description: 'Criação de nova planta.' },
       { name: 'Zombie', description: 'Rega com 100ml de água.' }
     ]
-    const tableHeaders = ['Grow', 'Planta', 'Última rega', 'Ações']
-    const tableRows = ref([])
+    const tableHeaders = ['Grow', 'Planta', 'Status', 'Criada', 'Ações']
 
-    const convertTimestampToDate = (timestamp) => {
-      const date = new Date(parseInt(timestamp) * 1000)
-      return date.toLocaleDateString()
-    }
-    const getListPlant = () => {
-      authService.listPlant().then((response) => {
-        const listPlants = response.data
-        tableRows.value = listPlants.map((item) => ({
-          Grow: item.space || 'Vazio',
-          Planta: item.name || 'Vazio',
-          'Última rega': convertTimestampToDate(item.last_water)
-        }))
-        totalPlant.value = listPlants.length
-      })
-    }
-    onMounted(getListPlant)
-    return { tableRows, tableHeaders, totalPlant, historic, userStore }
+    // const convertTimestampToDate = (timestamp) => {
+    //   const date = new Date(parseInt(timestamp) * 1000)
+    //   return date.toLocaleDateString()
+    // }
+    const tableRows = computed(() =>
+      plantStore.plants.map((item) => ({
+        Grow: item.space || 'Vazio',
+        Planta: item.name || 'Vazio',
+        Criada: item.created,
+        Status: item.status
+      }))
+    )
+    // totalPlant.value = growStore.plants.length
+    // const isActiveLoader = computed(() => growStore.isLoaderActive)
+    onMounted(() => {
+      plantStore.fetchListPlants()
+    })
+    return { tableRows, tableHeaders, totalPlant, historic, userStore, plantStore }
   }
 })
 </script>

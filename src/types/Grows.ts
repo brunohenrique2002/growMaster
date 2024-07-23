@@ -6,6 +6,7 @@ export interface dataGrows {
 export interface GrowState {
   grows: Grow[]
   error: string | null
+  isLoaderActive: boolean
 }
 export interface deleteGrow {
   id: number

@@ -5,17 +5,24 @@ import { useStoreModals } from '@/store/StoreModals'
 export const useGrowsStore = defineStore('grow', {
   state: (): GrowState => ({
     grows: [],
-    error: null
+    error: null,
+    isLoaderActive: false
   }),
   actions: {
+    setLoaderActive(active: boolean) {
+      this.isLoaderActive = active
+    },
     async fetchListGrows() {
       this.error = null
-
+      this.setLoaderActive(true)
       try {
         const response = await authService.listGrow()
         this.grows = response.data
+        // console.log(this.grows)
       } catch (error) {
-        this.error = 'Erro'
+        console.error(error)
+      } finally {
+        this.setLoaderActive(false)
       }
     },
     async createGrow(data: dataGrows) {

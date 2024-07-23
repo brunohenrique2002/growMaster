@@ -87,7 +87,7 @@ export default defineComponent({
   }
   th,
   td {
-    padding: 1em;
+    padding: 10px 0;
     text-align: center;
     font-size: 1.3em;
     width: 100%;
