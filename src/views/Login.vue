@@ -7,7 +7,7 @@
       <h1 class="login__welcome">Bem vindo</h1>
       <div class="login__input">
         <AtInput
-          type="text"
+          type="email"
           text="Email"
           placeholder="Digite seu email"
           id="email"
