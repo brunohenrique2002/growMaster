@@ -3,8 +3,10 @@
     <h1 class="home__title">Dashboard</h1>
     <AtCard :total="totalPlant" class="home__card" />
     <AtHistoricRecent :historicRecent="historic" />
-    <!-- <AtLoader :isLoaderActive="isActiveLoader" /> -->
-    <MolTable :titles="tableHeaders" :items="tableRows" />
+    <div class="sla">
+      <MolTable :titles="tableHeaders" :items="tableRows" @deleteItem="deletePlant" />
+      <AtLoader :isLoaderActive="isActiveLoader" />
+    </div>
   </div>
 </template>
 <script>
@@ -15,14 +17,14 @@ import AtHistoricRecent from '@/components/atoms/AtHistoricRecent.vue'
 import AtLoader from '@/components/atoms/AtLoader.vue'
 import { useUserStore } from '@/store/StoreUser'
 import { usePlantsStore } from '@/store/StorePlants'
-import authService from '@/services/ApiService'
+// import authService from '@/services/ApiService'
 export default defineComponent({
   name: 'Home',
-  components: { MolTable, AtCard, AtHistoricRecent },
+  components: { MolTable, AtCard, AtHistoricRecent, AtLoader },
   setup() {
     const userStore = useUserStore()
     const plantStore = usePlantsStore()
-    const totalPlant = ref(0)
+
     const historic = [
       { name: 'Purple', description: 'Criação de nova planta.' },
       { name: 'Zombie', description: 'Rega com 100ml de água.' }
@@ -33,20 +35,36 @@ export default defineComponent({
     //   const date = new Date(parseInt(timestamp) * 1000)
     //   return date.toLocaleDateString()
     // }
+    const totalPlant = computed(() => plantStore.plants.length)
+
     const tableRows = computed(() =>
       plantStore.plants.map((item) => ({
-        Grow: item.space || 'Vazio',
+        Grow: item.grow || 'Vazio',
         Planta: item.name || 'Vazio',
-        Criada: item.created,
-        Status: item.status
+        Criada: item.created || 'Vazio',
+        Status: item.status || 'Vazio',
+        id: item.id
       }))
     )
-    // totalPlant.value = growStore.plants.length
-    // const isActiveLoader = computed(() => growStore.isLoaderActive)
+    console.log(plantStore.plants.length)
+
+    const deletePlant = (id) => {
+      plantStore.deletePlant({ id })
+    }
+    const isActiveLoader = computed(() => plantStore.isLoaderActive)
     onMounted(() => {
       plantStore.fetchListPlants()
     })
-    return { tableRows, tableHeaders, totalPlant, historic, userStore, plantStore }
+    return {
+      tableRows,
+      tableHeaders,
+      historic,
+      userStore,
+      plantStore,
+      deletePlant,
+      isActiveLoader,
+      totalPlant
+    }
   }
 })
 </script>

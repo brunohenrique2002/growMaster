@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useUserStore } from '@/store/StoreUser'
 import { Login } from '@/types/Login'
 import { dataGrows, deleteGrow } from '@/types/Grows'
+import { dataPlants, deletePlant } from '@/types/Plants'
 
 const API_BASE = 'https://mysterious-eyrie-69850-35adda475f99.herokuapp.com/api'
 
@@ -27,11 +28,14 @@ instance.interceptors.request.use(
 
 const login = async (data: Login) => {
   try {
-    const response = await axios.post(`${API_BASE}/user`, data)
+    const response = await instance.post(`${API_BASE}/user`, data)
 
     const userStore = useUserStore()
-
     const { email, name, token } = response.data
+
+    if (!token) {
+      throw new Error('Erro ao fazer login')
+    }
 
     userStore.setEmail(name)
     userStore.setName(email)
@@ -42,6 +46,7 @@ const login = async (data: Login) => {
     throw new Error('Erro ao fazer login')
   }
 }
+// Aréa Grows //
 const addGrow = (data: dataGrows) => {
   const response = instance.post(`${API_BASE}/grows`, data)
   return response
@@ -50,11 +55,22 @@ const deleteGrow = (data: deleteGrow) => {
   const response = instance.post(`${API_BASE}/grows/delete`, data)
   return response
 }
+const listGrow = () => {
+  return instance.get(`${API_BASE}/grows`)
+}
+
+// Aréa Plantas //
 const listPlant = () => {
   return instance.get(`${API_BASE}/plants`)
 }
-const listGrow = () => {
-  return instance.get(`${API_BASE}/grows`)
+const addPlant = (data: dataPlants) => {
+  const response = instance.post(`${API_BASE}/plants`, data)
+  return response
+}
+
+const deletePlant = (data: deletePlant) => {
+  const response = instance.post(`${API_BASE}/plants/delete`, data)
+  return response
 }
 
 const authService = {
@@ -62,7 +78,9 @@ const authService = {
   listPlant,
   listGrow,
   addGrow,
-  deleteGrow
+  deleteGrow,
+  deletePlant,
+  addPlant
 }
 
 export default authService

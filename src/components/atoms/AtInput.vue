@@ -15,7 +15,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-type InputType = 'text' | 'number' | 'email' | 'password' | 'date' | 'file'
+type InputType = 'text' | 'number' | 'email' | 'password' | 'file'
 export default defineComponent({
   name: 'AtInput',
   props: {

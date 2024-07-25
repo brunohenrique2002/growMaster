@@ -7,7 +7,7 @@
         text="Adicionar planta"
         v-if="activeModal.showModalListGrow"
         @closeModal="handleShowModal"
-        @send="sendForm"
+        @send="createGrow"
       >
         <AtInput
           type="text"
@@ -61,7 +61,7 @@ export default defineComponent({
     const handleShowModal = (value: boolean) => {
       activeModal.showModalListGrow = value
     }
-    const sendForm = () => {
+    const createGrow = () => {
       const data = {
         name: name.value,
         description: description.value
@@ -77,7 +77,7 @@ export default defineComponent({
     )
     const isActiveLoader = computed(() => growStore.isLoaderActive)
 
-    const deleteGrow = (id: number) => {
+    const deleteGrow = (id) => {
       growStore.deleteGrow({ id })
     }
 
@@ -88,7 +88,7 @@ export default defineComponent({
       showModal,
       handleShowModal,
       isActiveLoader,
-      sendForm,
+      createGrow,
       deleteGrow,
       tableRows,
       tableHeaders,

@@ -4,30 +4,33 @@
     text="Adicionar planta"
     v-if="activeModals.showModalListPlant"
     @closeModal="handleShowModal"
+    @send="createPlants"
   >
     <AtInput
       type="text"
       text="Nome da planta"
       placeholder="Planta Biquinho..."
-      id="name"
-      name="name"
-      :value="name"
+      id="namePlant"
+      name="namePlant"
+      v-model="namePlant"
     />
     <AtInput
       type="text"
-      text="Espécie"
-      placeholder="Purple..."
-      id="especie"
-      name="especie"
-      :value="especie"
+      text="Status"
+      placeholder="VEG..."
+      id="status"
+      name="status"
+      v-model="status"
     />
+    <AtInput type="text" text="Grow" placeholder="Grow 1.." id="grow" name="grow" v-model="grow" />
     <AtInput
-      type="date"
+      type="text"
       text="Data de criação"
       placeholder="12/05/2024"
       id="date"
       name="date"
-      :value="date"
+      v-model="date"
+      v-mask="'##/##/####'"
     />
   </MolModal>
   <div
@@ -59,6 +62,7 @@
 import { defineComponent, ref, watch } from 'vue'
 import AtIcons from '@/components/atoms/AtIcons.vue'
 import { useStoreModals } from '@/store/StoreModals'
+import { usePlantsStore } from '@/store/StorePlants'
 import MolModal from '@/components/molecules/MolModal.vue'
 import AtInput from '@/components/atoms/AtInput.vue'
 // import AtWarnings from '@/components/atoms/AtWarnings.vue'
@@ -73,8 +77,10 @@ export default defineComponent({
 
   setup() {
     const activeModals = useStoreModals()
-    const name = ref('')
-    const especie = ref('')
+    const plantStore = usePlantsStore()
+    const namePlant = ref('')
+    const status = ref('')
+    const grow = ref('')
     const date = ref('')
     const icons = ref([
       {
@@ -93,6 +99,15 @@ export default defineComponent({
         text: 'Rega rápida'
       }
     ])
+    const createPlants = () => {
+      const data = {
+        name: namePlant.value,
+        status: status.value,
+        created: date.value,
+        grow: grow.value
+      }
+      plantStore.createPlant(data)
+    }
     const triggerWarnings = () => {
       activeModals.showModalPlant()
       // activeModals.activeWarning = true
@@ -130,14 +145,17 @@ export default defineComponent({
     return {
       icons,
       toggleModal,
+      createPlants,
       activeModals,
       handleAction,
-      name,
-      especie,
+      namePlant,
+      status,
+      grow,
       date,
       openModal,
       handleShowModal,
-      triggerWarnings
+      triggerWarnings,
+      plantStore
     }
   }
 })
