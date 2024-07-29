@@ -1,6 +1,7 @@
 <template>
   <div class="grow">
     <h1 class="grow__title">Grows</h1>
+    <AtCard :total="totalGrow" totalInfo="Total de grows" class="home__card" />
     <div class="grow__container">
       <AtLoader :isLoaderActive="isActiveLoader" />
       <MolModal
@@ -25,6 +26,9 @@
           name="description"
           v-model="description"
         />
+        <div class="grow__message-error">
+          <p>{{ messageError }}</p>
+        </div>
       </MolModal>
       <div class="grow__add-grow">
         <AtButton class="grow__button-add" text="Adicionar grow" @click="showModal" />
@@ -37,6 +41,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, onMounted, computed, ref } from 'vue'
+import AtCard from '@/components/atoms/AtCard.vue'
 import MolTable from '@/components/molecules/MolTable.vue'
 import MolModal from '@/components/molecules/MolModal.vue'
 import AtButton from '@/components/atoms/AtButton.vue'
@@ -47,10 +52,11 @@ import { useGrowsStore } from '@/store/StoreGrows'
 import { dataGrows } from '@/types/Grows'
 export default defineComponent({
   name: 'grows',
-  components: { MolTable, AtButton, MolModal, AtInput, AtLoader },
+  components: { MolTable, AtButton, MolModal, AtInput, AtLoader, AtCard },
   setup() {
     const name = ref('')
     const description = ref('')
+    const messageError = ref('')
     const growStore = useGrowsStore()
     const activeModal = useStoreModals()
     const tableHeaders = ['Nome grow', 'Descrição', 'Ações']
@@ -61,12 +67,30 @@ export default defineComponent({
     const handleShowModal = (value: boolean) => {
       activeModal.showModalListGrow = value
     }
-    const createGrow = () => {
-      const data = {
-        name: name.value,
-        description: description.value
+
+    const validationForm = () => {
+      messageError.value = ''
+      if (!name.value) {
+        messageError.value = 'Por favor informe o nome do grow'
+      } else {
+        return true
       }
-      growStore.createGrow(data)
+      return false
+    }
+    const createGrow = () => {
+      if (validationForm()) {
+        try {
+          const data = {
+            name: name.value,
+            description: description.value
+          }
+          growStore.createGrow(data)
+          name.value = ''
+          description.value = ''
+        } catch (error) {
+          console.error(error)
+        }
+      }
     }
     const tableRows = computed(() =>
       growStore.grows.map((item: dataGrows) => ({
@@ -75,6 +99,7 @@ export default defineComponent({
         id: item.id
       }))
     )
+    const totalGrow = computed(() => growStore.grows.length)
     const isActiveLoader = computed(() => growStore.isLoaderActive)
 
     const deleteGrow = (id) => {
@@ -87,6 +112,7 @@ export default defineComponent({
     return {
       showModal,
       handleShowModal,
+      messageError,
       isActiveLoader,
       createGrow,
       deleteGrow,
@@ -95,7 +121,8 @@ export default defineComponent({
       activeModal,
       growStore,
       name,
-      description
+      description,
+      totalGrow
     }
   }
 })
@@ -103,6 +130,11 @@ export default defineComponent({
 <style lang="scss" scoped>
 .grow {
   margin: 15px;
+  &__message-error {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: var(--color-error);
+  }
   &__list-grows {
     width: 100%;
   }

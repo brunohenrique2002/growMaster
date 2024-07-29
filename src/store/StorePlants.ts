@@ -6,7 +6,8 @@ export const usePlantsStore = defineStore('plants', {
   state: (): PlantsState => ({
     plants: [],
     error: null,
-    isLoaderActive: false
+    isLoaderActive: false,
+    requestProgress: false
   }),
   actions: {
     setLoaderActive(active: boolean) {
@@ -27,15 +28,24 @@ export const usePlantsStore = defineStore('plants', {
     },
 
     async createPlant(data: dataPlants) {
+      if (this.requestProgress) {
+        return console.error('Espere!')
+      }
       const isActiveModal = useStoreModals()
       try {
+        this.requestProgress = true
         await authService.addPlant(data)
         if (this.plants) {
-          isActiveModal.showModalPlant()
+          this.setLoaderActive(true)
           isActiveModal.toggleModal()
           this.fetchListPlants()
+          setTimeout(() => {
+            this.requestProgress = false
+            isActiveModal.showModalPlant()
+          }, 500)
         }
       } catch (error) {
+        this.requestProgress = false
         console.log(error)
       }
     },

@@ -37,10 +37,6 @@ export default defineComponent({
         }
       },
       {
-        icon: ['fas', 'magnifying-glass'],
-        text: 'Search'
-      },
-      {
         icon: ['far', 'square-plus'],
         text: 'New',
         action: () => {

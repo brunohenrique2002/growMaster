@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <h1 class="home__title">Dashboard</h1>
-    <AtCard :total="totalPlant" class="home__card" />
+    <AtCard :total="totalPlant" totalInfo="Total de plantas" class="home__card" />
     <AtHistoricRecent :historicRecent="historic" />
     <div class="sla">
       <MolTable :titles="tableHeaders" :items="tableRows" @deleteItem="deletePlant" />

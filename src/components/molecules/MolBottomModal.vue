@@ -32,6 +32,9 @@
       v-model="date"
       v-mask="'##/##/####'"
     />
+    <div class="message-error">
+      <p>{{ messageError }}</p>
+    </div>
   </MolModal>
   <div
     class="background"
@@ -78,6 +81,7 @@ export default defineComponent({
   setup() {
     const activeModals = useStoreModals()
     const plantStore = usePlantsStore()
+    const messageError = ref('')
     const namePlant = ref('')
     const status = ref('')
     const grow = ref('')
@@ -99,14 +103,67 @@ export default defineComponent({
         text: 'Rega rápida'
       }
     ])
-    const createPlants = () => {
-      const data = {
-        name: namePlant.value,
-        status: status.value,
-        created: date.value,
-        grow: grow.value
+    const clearForm = () => {
+      namePlant.value = ''
+      status.value = ''
+      date.value = ''
+      grow.value = ''
+    }
+    const validateDate = (dateStr: string): boolean => {
+      const datePattern = /^(\d{2})\/(\d{2})\/(\d{4})$/
+      const match = dateStr.match(datePattern)
+
+      if (!match) {
+        messageError.value = 'Data inválida. Use o formato dd/mm/aaaa.'
+        return false
       }
-      plantStore.createPlant(data)
+      const [, day, month, year] = match.map(Number)
+
+      const date = new Date(year, month - 1, day)
+      if (date.getDate() !== day || date.getMonth() !== month - 1 || date.getFullYear() !== year) {
+        messageError.value = 'Data inválida.'
+        return false
+      }
+
+      const limitDate = new Date(2024, 11, 31)
+
+      if (date > limitDate) {
+        messageError.value = 'A data não pode ser posterior a 31/12/2024.'
+        return false
+      }
+
+      return true
+    }
+    const validationForm = () => {
+      messageError.value = ''
+      if (!namePlant.value.trim()) {
+        messageError.value = 'Por favor informe o nome da planta'
+      } else if (!status.value.trim()) {
+        messageError.value = 'Por favor informe o status da planta'
+      } else if (!grow.value.trim()) {
+        messageError.value = 'Por favor informe o grow da planta'
+      } else if (!validateDate(date.value.trim())) {
+        return
+      } else {
+        return true
+      }
+      return false
+    }
+    const createPlants = () => {
+      if (validationForm()) {
+        try {
+          const data = {
+            name: namePlant.value,
+            status: status.value,
+            created: date.value,
+            grow: grow.value
+          }
+          plantStore.createPlant(data)
+          clearForm()
+        } catch (error) {
+          console.error(error)
+        }
+      }
     }
     const triggerWarnings = () => {
       activeModals.showModalPlant()
@@ -148,6 +205,7 @@ export default defineComponent({
       createPlants,
       activeModals,
       handleAction,
+      messageError,
       namePlant,
       status,
       grow,
@@ -169,6 +227,11 @@ export default defineComponent({
     position: fixed;
     top: 0;
   }
+}
+.message-error {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: var(--color-error);
 }
 
 .modal-bottom {

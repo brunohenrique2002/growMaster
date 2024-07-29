@@ -12,7 +12,11 @@
           <td v-for="(title, index) in titles" :key="index">
             <span v-if="title === 'Ações'">
               <AtIcons class="table__icons" :icon="['fas', 'eye']" />
-              <AtIcons class="table__icons" :icon="['fas', 'trash']" @click="deleteItem(item.id)" />
+              <AtIcons
+                class="table__icons table__icon-margin"
+                :icon="['fas', 'trash']"
+                @click="deleteItem(item.id)"
+              />
             </span>
             <span v-else>
               {{ item[title] }}
@@ -109,9 +113,11 @@ export default defineComponent({
 
   &__icons {
     color: var(--color-primary);
-    margin-left: 5px;
+    margin-left: 3px;
   }
-
+  &__icon-margin {
+    margin-left: 12px;
+  }
   @media (min-width: 600px) {
     td {
       padding: 1.5em;

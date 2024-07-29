@@ -23,8 +23,10 @@ export default defineComponent({
 <style lang="scss" scoped>
 .loader {
   position: absolute;
-  right: 44%;
-  bottom: 60%;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
 
   &__spinner {
     width: 40px;

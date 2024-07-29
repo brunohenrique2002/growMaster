@@ -6,7 +6,8 @@ export const useGrowsStore = defineStore('grow', {
   state: (): GrowState => ({
     grows: [],
     error: null,
-    isLoaderActive: false
+    isLoaderActive: false,
+    requestProgress: false
   }),
   actions: {
     setLoaderActive(active: boolean) {
@@ -26,14 +27,23 @@ export const useGrowsStore = defineStore('grow', {
       }
     },
     async createGrow(data: dataGrows) {
+      if (this.requestProgress) {
+        return console.error('Espere!')
+      }
       const isActiveModal = useStoreModals()
       try {
+        this.requestProgress = true
         await authService.addGrow(data)
         if (this.grows) {
-          isActiveModal.showModalGrow()
+          this.setLoaderActive(true)
           this.fetchListGrows()
+          setTimeout(() => {
+            this.requestProgress = false
+            isActiveModal.showModalGrow()
+          }, 500)
         }
       } catch (error) {
+        this.requestProgress = false
         console.log(error)
       }
     },
