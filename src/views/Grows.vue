@@ -67,7 +67,10 @@ export default defineComponent({
     const handleShowModal = (value: boolean) => {
       activeModal.showModalListGrow = value
     }
-
+    const clearInfo = () => {
+      name.value = ''
+      description.value = ''
+    }
     const validationForm = () => {
       messageError.value = ''
       if (!name.value) {
@@ -85,8 +88,7 @@ export default defineComponent({
             description: description.value
           }
           growStore.createGrow(data)
-          name.value = ''
-          description.value = ''
+          clearInfo()
         } catch (error) {
           console.error(error)
         }
@@ -122,7 +124,8 @@ export default defineComponent({
       growStore,
       name,
       description,
-      totalGrow
+      totalGrow,
+      clearInfo
     }
   }
 })
