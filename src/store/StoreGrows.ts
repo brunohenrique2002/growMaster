@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import authService from '@/services/ApiService'
-import { GrowState, dataGrows, deleteGrow } from '@/types/Grows'
+import { GrowState, Grow, deleteGrow } from '@/types/Grows'
 import { useStoreModals } from '@/store/StoreModals'
 export const useGrowsStore = defineStore('grow', {
   state: (): GrowState => ({
@@ -26,7 +26,7 @@ export const useGrowsStore = defineStore('grow', {
         this.setLoaderActive(false)
       }
     },
-    async createGrow(data: dataGrows) {
+    async createGrow(data: Grow) {
       if (this.requestProgress) {
         return console.error('Espere!')
       }

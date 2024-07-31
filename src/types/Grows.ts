@@ -1,7 +1,8 @@
-export interface dataGrows {
+export interface Grow {
   id?: number
   name: string
   description: string
+  status: string
 }
 export interface GrowState {
   grows: Grow[]

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { PlantsState, deletePlant, dataPlants } from '@/types/Plants'
+import { PlantsState, deletePlant, plant } from '@/types/Plants'
 import authService from '@/services/ApiService'
 import { useStoreModals } from '@/store/StoreModals'
 export const usePlantsStore = defineStore('plants', {
@@ -27,7 +27,7 @@ export const usePlantsStore = defineStore('plants', {
       }
     },
 
-    async createPlant(data: dataPlants) {
+    async createPlant(data: plant) {
       if (this.requestProgress) {
         return console.error('Espere!')
       }

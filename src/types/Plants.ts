@@ -1,3 +1,8 @@
+export interface plant {
+  name: string | null
+  status: string
+  created: string
+}
 export interface PlantsState {
   plants: plant[]
   error: string | null
@@ -6,10 +11,4 @@ export interface PlantsState {
 }
 export interface deletePlant {
   id: number
-}
-export interface dataPlants {
-  name: string | null
-  status: string
-  created: string
-  // grow: number
 }

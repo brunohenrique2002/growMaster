@@ -14,15 +14,19 @@
       name="namePlant"
       v-model="namePlant"
     />
-    <AtInput
-      type="text"
-      text="Status"
+
+    <AtSelect
+      title="Selecione o status"
+      :options="optionsStatus"
       placeholder="VEG..."
-      id="status"
-      name="status"
-      v-model="status"
+      v-model="selectedStatus"
     />
-    <AtInput type="text" text="Grow" placeholder="Grow 1.." id="grow" name="grow" v-model="grow" />
+    <AtSelect
+      title="Selecione o grow"
+      :options="optionsId"
+      placeholder="Grow 1..."
+      v-model="selectedGrow"
+    />
     <AtInput
       type="text"
       text="Data de criação"
@@ -62,10 +66,13 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch, computed, onMounted } from 'vue'
 import AtIcons from '@/components/atoms/AtIcons.vue'
+import AtSelect from '@/components/atoms/AtSelect.vue'
 import { useStoreModals } from '@/store/StoreModals'
 import { usePlantsStore } from '@/store/StorePlants'
+import { useGrowsStore } from '@/store/StoreGrows'
+import { Grow } from '@/types/Grows'
 import MolModal from '@/components/molecules/MolModal.vue'
 import AtInput from '@/components/atoms/AtInput.vue'
 // import AtWarnings from '@/components/atoms/AtWarnings.vue'
@@ -74,18 +81,22 @@ export default defineComponent({
   components: {
     AtIcons,
     MolModal,
-    AtInput
+    AtInput,
+    AtSelect
     // AtWarnings
   },
 
   setup() {
     const activeModals = useStoreModals()
     const plantStore = usePlantsStore()
+    const growsStore = useGrowsStore()
     const messageError = ref('')
     const namePlant = ref('')
     const status = ref('')
     const grow = ref('')
     const date = ref('')
+    const selectedGrow = ref<string | number | undefined>(undefined)
+    const selectedStatus = ref('')
     const icons = ref([
       {
         icon: ['fas', 'cannabis'],
@@ -103,12 +114,15 @@ export default defineComponent({
         text: 'Rega rápida'
       }
     ])
-    const clearForm = () => {
-      namePlant.value = ''
-      status.value = ''
-      date.value = ''
-      grow.value = ''
-    }
+    const optionsStatus = ['VEG', 'BLOOM']
+
+    const optionsId = computed(() =>
+      growsStore.grows.map((item: Grow) => ({
+        value: item.name,
+        label: `${item.name} - ( ${item.description} ) `,
+        id: item.id
+      }))
+    )
     const validateDate = (dateStr: string): boolean => {
       const datePattern = /^(\d{2})\/(\d{2})\/(\d{4})$/
       const match = dateStr.match(datePattern)
@@ -137,11 +151,11 @@ export default defineComponent({
     const validationForm = () => {
       messageError.value = ''
       if (!namePlant.value.trim()) {
-        messageError.value = 'Por favor informe o nome da planta'
-      } else if (!status.value.trim()) {
-        messageError.value = 'Por favor informe o status da planta'
-      } else if (!grow.value.trim()) {
-        messageError.value = 'Por favor informe o grow da planta'
+        messageError.value = 'Por favor, informe o NOME da planta'
+      } else if (!selectedStatus.value) {
+        messageError.value = 'Por favor, informe o STATUS da planta'
+      } else if (selectedGrow.value === null || !selectedGrow.value) {
+        messageError.value = 'Por favor, verifique se tem grow cadastrado ou selecionado'
       } else if (!validateDate(date.value.trim())) {
         return
       } else {
@@ -149,14 +163,22 @@ export default defineComponent({
       }
       return false
     }
+    const clearForm = () => {
+      namePlant.value = ''
+      status.value = ''
+      date.value = ''
+      selectedGrow.value = ''
+      selectedStatus.value = ''
+    }
+
     const createPlants = () => {
       if (validationForm()) {
         try {
           const data = {
             name: namePlant.value,
-            status: status.value,
+            status: selectedStatus.value,
             created: date.value,
-            grow: grow.value
+            grow: selectedGrow.value
           }
           plantStore.createPlant(data)
           clearForm()
@@ -198,6 +220,9 @@ export default defineComponent({
         }
       }
     )
+    onMounted(() => {
+      growsStore.fetchListGrows()
+    })
 
     return {
       icons,
@@ -213,7 +238,12 @@ export default defineComponent({
       openModal,
       handleShowModal,
       triggerWarnings,
-      plantStore
+      plantStore,
+      growsStore,
+      optionsId,
+      optionsStatus,
+      selectedGrow,
+      selectedStatus
     }
   }
 })
