@@ -5,10 +5,11 @@
     <div class="grow__container">
       <AtLoader :isLoaderActive="isActiveLoader" />
       <MolModal
-        text="Adicionar planta"
         v-if="activeModal.showModalListGrow"
         @closeModal="handleShowModal"
-        @send="createGrow"
+        @send="sendFormGrow"
+        :text="isEdit ? 'Editar grow' : 'Adicionar grow'"
+        :isEdit="isEdit"
       >
         <AtInput
           type="text"
@@ -35,7 +36,12 @@
         <AtButton class="grow__button-add" text="Adicionar grow" @click="showModal" />
       </div>
       <div class="grow__list-grows">
-        <MolTable :titles="tableHeaders" :items="tableRows" @deleteItem="deleteGrow" />
+        <MolTable
+          :titles="tableHeaders"
+          :items="tableRows"
+          @deleteItem="deleteGrow"
+          @editItem="toEdit"
+        />
       </div>
     </div>
   </div>
@@ -48,9 +54,10 @@ import MolModal from '@/components/molecules/MolModal.vue'
 import AtButton from '@/components/atoms/AtButton.vue'
 import AtInput from '@/components/atoms/AtInput.vue'
 import AtLoader from '@/components/atoms/AtLoader.vue'
+
 import { useStoreModals } from '@/store/StoreModals'
 import { useGrowsStore } from '@/store/StoreGrows'
-import { dataGrows } from '@/types/Grows'
+import { Grow, GrowEdit } from '@/types/Grows'
 export default defineComponent({
   name: 'grows',
   components: { MolTable, AtButton, MolModal, AtInput, AtLoader, AtCard },
@@ -58,6 +65,8 @@ export default defineComponent({
     const name = ref('')
     const description = ref('')
     const messageError = ref('')
+    const isEdit = ref(false)
+    const growId = ref<number | null>(null)
     const growStore = useGrowsStore()
     const activeModal = useStoreModals()
     const tableHeaders = ['Nome grow', 'Descrição', 'Ações']
@@ -67,6 +76,10 @@ export default defineComponent({
     }
     const handleShowModal = (value: boolean) => {
       activeModal.showModalListGrow = value
+      if (!value) {
+        isEdit.value = false
+        clearInfo()
+      }
     }
     const clearInfo = () => {
       name.value = ''
@@ -80,6 +93,40 @@ export default defineComponent({
         return true
       }
       return false
+    }
+    const sendFormGrow = () => {
+      if (isEdit.value) {
+        editGrow()
+      } else {
+        createGrow()
+      }
+    }
+    const toEdit = (id: number) => {
+      const grow = growStore.grows.find((grow) => grow.id === id)
+      if (grow) {
+        name.value = grow.name
+        description.value = grow.description
+        growId.value = grow.id
+
+        isEdit.value = true
+        handleShowModal(true)
+      }
+    }
+    const editGrow = async () => {
+      if (validationForm() && growId.value !== null) {
+        try {
+          const data: GrowEdit = {
+            id_update: growId.value,
+            name: name.value,
+            description: description.value
+          }
+          await growStore.editGrow(data)
+          clearInfo()
+          handleShowModal(false)
+        } catch (error) {
+          console.error(error)
+        }
+      }
     }
     const createGrow = () => {
       if (validationForm()) {
@@ -96,19 +143,19 @@ export default defineComponent({
       }
     }
     const tableRows = computed(() =>
-      growStore.grows.map((item: dataGrows) => ({
+      growStore.grows.map((item: Grow) => ({
         'Nome grow': item.name || 'Vazio',
         Descrição: item.description || 'Vazio',
         id: item.id
       }))
     )
     const totalGrow = computed(() => growStore.grows.length)
+
     const isActiveLoader = computed(() => growStore.isLoaderActive)
 
-    const deleteGrow = (id) => {
+    const deleteGrow = (id: number) => {
       growStore.deleteGrow({ id })
     }
-
     onMounted(() => {
       growStore.fetchListGrows()
     })
@@ -119,6 +166,10 @@ export default defineComponent({
       isActiveLoader,
       createGrow,
       deleteGrow,
+      toEdit,
+      sendFormGrow,
+      isEdit,
+      editGrow,
       tableRows,
       tableHeaders,
       activeModal,

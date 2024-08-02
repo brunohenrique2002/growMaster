@@ -1,8 +1,8 @@
 export interface Grow {
-  id?: number
+  id: number
   name: string
   description: string
-  status: string
+  status?: string
 }
 export interface GrowState {
   grows: Grow[]
@@ -10,6 +10,11 @@ export interface GrowState {
   isLoaderActive: boolean
   requestProgress: boolean
 }
-export interface deleteGrow {
+export interface ChangeGrow {
   id: number
+}
+export interface GrowEdit {
+  id_update: number
+  name: string
+  description: string
 }

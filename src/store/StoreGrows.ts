@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import authService from '@/services/ApiService'
-import { GrowState, Grow, deleteGrow } from '@/types/Grows'
+import { GrowState, Grow, ChangeGrow, GrowEdit } from '@/types/Grows'
 import { useStoreModals } from '@/store/StoreModals'
 export const useGrowsStore = defineStore('grow', {
   state: (): GrowState => ({
@@ -47,12 +47,20 @@ export const useGrowsStore = defineStore('grow', {
         console.log(error)
       }
     },
-    async deleteGrow(data: deleteGrow) {
+    async deleteGrow(data: ChangeGrow) {
       try {
         await authService.deleteGrow(data)
         if (this.grows) {
           this.fetchListGrows()
         }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async editGrow(data: GrowEdit) {
+      try {
+        await authService.editGrow(data)
+        this.fetchListGrows()
       } catch (error) {
         console.log(error)
       }

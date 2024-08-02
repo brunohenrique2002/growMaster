@@ -11,7 +11,7 @@
         <tr v-for="(item, index) in items" :key="index">
           <td v-for="(title, index) in titles" :key="index">
             <span v-if="title === 'Ações'">
-              <AtIcons class="table__icons" :icon="['fas', 'eye']" />
+              <AtIcons class="table__icons" :icon="['fas', 'eye']" @click="editItem(item.id)" />
               <AtIcons
                 class="table__icons table__icon-margin"
                 :icon="['fas', 'trash']"
@@ -52,13 +52,16 @@ export default defineComponent({
       required: true
     }
   },
-  emits: ['deleteItem'],
+  emits: ['deleteItem', 'editItem'],
 
   setup(props, { emit }) {
+    const editItem = (id: number) => {
+      emit('editItem', id)
+    }
     const deleteItem = (id: number) => {
       emit('deleteItem', id)
     }
-    return { deleteItem }
+    return { deleteItem, editItem }
   }
 })
 </script>

@@ -14,7 +14,7 @@
     </div>
     <div class="modal__footer">
       <AtButton class="modal__icons" text="Cancelar" @click="closeModal" />
-      <AtButton class="modal__icons" text="Adicionar" @click="sendForm" />
+      <AtButton class="modal__icons" :text="isEdit ? 'Editar' : 'Adicionar'" @click="sendForm" />
     </div>
   </div>
 </template>
@@ -35,6 +35,10 @@ export default defineComponent({
     text: {
       type: String,
       default: ''
+    },
+    isEdit: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props, { emit }) {

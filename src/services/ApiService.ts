@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { useUserStore } from '@/store/StoreUser'
 import { Login } from '@/types/Login'
-import { dataGrows, deleteGrow } from '@/types/Grows'
-import { dataPlants, deletePlant } from '@/types/Plants'
+import { Grow, ChangeGrow, GrowEdit } from '@/types/Grows'
+import { plant, deletePlant } from '@/types/Plants'
 
 const API_BASE = 'https://mysterious-eyrie-69850-35adda475f99.herokuapp.com/api'
 
@@ -47,23 +47,26 @@ const login = async (data: Login) => {
   }
 }
 // Aréa Grows //
-const addGrow = (data: dataGrows) => {
+const addGrow = (data: Grow) => {
   const response = instance.post(`${API_BASE}/grows`, data)
-  return response
-}
-const deleteGrow = (data: deleteGrow) => {
-  const response = instance.post(`${API_BASE}/grows/delete`, data)
   return response
 }
 const listGrow = () => {
   return instance.get(`${API_BASE}/grows`)
+}
+const deleteGrow = (data: ChangeGrow) => {
+  const response = instance.post(`${API_BASE}/grows/delete`, data)
+  return response
+}
+const editGrow = (data: GrowEdit) => {
+  return instance.post(`${API_BASE}/grows/update`, data)
 }
 
 // Aréa Plantas //
 const listPlant = () => {
   return instance.get(`${API_BASE}/plants`)
 }
-const addPlant = (data: dataPlants) => {
+const addPlant = (data: plant) => {
   const response = instance.post(`${API_BASE}/plants`, data)
   return response
 }
@@ -79,6 +82,7 @@ const authService = {
   listGrow,
   addGrow,
   deleteGrow,
+  editGrow,
   deletePlant,
   addPlant
 }
