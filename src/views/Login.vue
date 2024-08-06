@@ -6,30 +6,32 @@
     <div class="login__form">
       <h1 class="login__welcome">Bem vindo</h1>
       <div class="login__input">
-        <AtInput
-          type="email"
-          text="Email"
-          placeholder="Digite seu email"
-          id="email"
-          name="email"
-          v-model="email"
-          @blur="checksEmail"
-        />
-        <AtInput
-          type="password"
-          text="Senha"
-          placeholder="Digite sua senha"
-          id="password"
-          name="password"
-          v-model="password"
-          @blur="checksPassword"
-        />
-        <div class="login__button">
-          <AtButton text="Login" @click="SendLogin" :disabled="isDisabled" />
-        </div>
-        <div class="login__message-error">
-          <p>{{ messageError }}</p>
-        </div>
+        <form @submit.prevent="SendLogin">
+          <AtInput
+            type="email"
+            text="Email"
+            placeholder="Digite seu email"
+            id="email"
+            name="email"
+            v-model="email"
+            @blur="checksEmail"
+          />
+          <AtInput
+            type="password"
+            text="Senha"
+            placeholder="Digite sua senha"
+            id="password"
+            name="password"
+            v-model="password"
+            @blur="checksPassword"
+          />
+          <div class="login__button">
+            <AtButton text="Login" :disabled="isDisabled" />
+          </div>
+          <div class="login__message-error">
+            <p>{{ messageError }}</p>
+          </div>
+        </form>
       </div>
       <div class="login__forgot">
         <p>Esqueceu sua senha?</p>

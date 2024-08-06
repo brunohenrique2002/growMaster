@@ -7,7 +7,9 @@ export const useGrowsStore = defineStore('grow', {
     grows: [],
     error: null,
     isLoaderActive: false,
-    requestProgress: false
+    requestProgress: false,
+    isDeleting: false,
+    deletePromise: null
   }),
   actions: {
     setLoaderActive(active: boolean) {
@@ -19,50 +21,65 @@ export const useGrowsStore = defineStore('grow', {
       try {
         const response = await authService.listGrow()
         this.grows = response.data
-        // console.log(this.grows)
+        if (this.grows) {
+          this.setLoaderActive(false)
+        }
       } catch (error) {
         console.error(error)
-      } finally {
-        this.setLoaderActive(false)
       }
     },
     async createGrow(data: Grow) {
-      if (this.requestProgress) {
-        return console.error('Espere!')
-      }
+      if (this.requestProgress) return console.error('Espere!')
+
       const isActiveModal = useStoreModals()
       try {
         this.requestProgress = true
+        this.setLoaderActive(true)
+
         await authService.addGrow(data)
+
         if (this.grows) {
-          this.setLoaderActive(true)
+          isActiveModal.showModalGrow()
+
           this.fetchListGrows()
-          setTimeout(() => {
-            this.requestProgress = false
-            isActiveModal.showModalGrow()
-          }, 500)
+          this.requestProgress = false
         }
       } catch (error) {
         this.requestProgress = false
         console.log(error)
+      } finally {
+        this.requestProgress = false
+        this.setLoaderActive(false)
       }
     },
     async deleteGrow(data: ChangeGrow) {
-      try {
-        await authService.deleteGrow(data)
-        if (this.grows) {
-          this.fetchListGrows()
+      if (this.deletePromise) return this.deletePromise
+
+      this.deletePromise = (async () => {
+        try {
+          await authService.deleteGrow(data)
+          if (this.grows) {
+            await this.fetchListGrows()
+          }
+        } catch (error) {
+          console.log(error)
+        } finally {
+          this.deletePromise = null
         }
-      } catch (error) {
-        console.log(error)
-      }
+      })()
+
+      return this.deletePromise
     },
     async editGrow(data: GrowEdit) {
       try {
+        this.setLoaderActive(true)
+
         await authService.editGrow(data)
         this.fetchListGrows()
       } catch (error) {
         console.log(error)
+      } finally {
+        this.setLoaderActive(false)
       }
     }
   }

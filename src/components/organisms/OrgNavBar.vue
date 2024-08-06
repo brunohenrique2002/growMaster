@@ -34,6 +34,7 @@ export default defineComponent({
         text: 'Home',
         action: () => {
           router.push('/dashboard')
+          showModal.closeModalBottom(false)
         }
       },
       {
@@ -48,6 +49,7 @@ export default defineComponent({
         text: 'Grows',
         action: () => {
           router.push('/dashboard/grows')
+          showModal.closeModalBottom(false)
         }
       }
     ]

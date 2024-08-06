@@ -9,6 +9,8 @@ export interface GrowState {
   error: string | null
   isLoaderActive: boolean
   requestProgress: boolean
+  isDeleting: boolean
+  deletePromise: Promise<void> | null
 }
 export interface ChangeGrow {
   id: number

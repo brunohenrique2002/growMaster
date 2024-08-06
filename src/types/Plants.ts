@@ -8,6 +8,7 @@ export interface PlantsState {
   error: string | null
   isLoaderActive: boolean
   requestProgress: boolean
+  deletePromise: Promise<void> | null
 }
 export interface deletePlant {
   id: number

@@ -7,7 +7,8 @@ export const usePlantsStore = defineStore('plants', {
     plants: [],
     error: null,
     isLoaderActive: false,
-    requestProgress: false
+    requestProgress: false,
+    deletePromise: null
   }),
   actions: {
     setLoaderActive(active: boolean) {
@@ -28,36 +29,44 @@ export const usePlantsStore = defineStore('plants', {
     },
 
     async createPlant(data: plant) {
-      if (this.requestProgress) {
-        return console.error('Espere!')
-      }
+      if (this.requestProgress) return console.error('Espere!')
+
       const isActiveModal = useStoreModals()
       try {
         this.requestProgress = true
+        this.setLoaderActive(true)
+
         await authService.addPlant(data)
+
         if (this.plants) {
-          this.setLoaderActive(true)
           isActiveModal.toggleModal()
           this.fetchListPlants()
-          setTimeout(() => {
-            this.requestProgress = false
-            isActiveModal.showModalPlant()
-          }, 500)
+          this.requestProgress = false
+          isActiveModal.showModalPlant()
         }
       } catch (error) {
         this.requestProgress = false
         console.log(error)
+      } finally {
+        this.requestProgress = false
+        this.setLoaderActive(false)
       }
     },
     async deletePlant(data: deletePlant) {
-      try {
-        await authService.deletePlant(data)
-        if (this.plants) {
-          this.fetchListPlants()
+      if (this.deletePromise) return this.deletePromise
+      this.deletePromise = (async () => {
+        try {
+          await authService.deletePlant(data)
+          if (this.plants) {
+            await this.fetchListPlants()
+          }
+        } catch (error) {
+          console.log(error)
+        } finally {
+          this.deletePromise = null
         }
-      } catch (error) {
-        console.log(error)
-      }
+      })()
+      return this.deletePromise
     }
   }
 })

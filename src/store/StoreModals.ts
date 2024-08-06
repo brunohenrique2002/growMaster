@@ -25,6 +25,9 @@ export const useStoreModals = defineStore('modals', {
     },
     toggleModal() {
       this.isActiveSideBottom = !this.isActiveSideBottom
+    },
+    closeModalBottom(close: boolean) {
+      this.isActiveSideBottom = close
     }
   },
   getters: {}

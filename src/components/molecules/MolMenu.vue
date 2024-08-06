@@ -9,7 +9,7 @@
       <div class="menu__sidebar-content">
         <ul class="menu__sidebar-list">
           <li class="menu__sidebar-items" v-for="(item, index) in sideList" :key="index">
-            <AtIcons :icon="item.icon" />
+            <AtIcons :icon="item.icon" @click="handleAction(item)" />
             <p class="menu__sidebar-text" @click="handleAction(item)">{{ item.text }}</p>
           </li>
         </ul>

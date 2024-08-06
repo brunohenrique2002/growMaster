@@ -107,7 +107,6 @@ export default defineComponent({
         name.value = grow.name
         description.value = grow.description
         growId.value = grow.id
-
         isEdit.value = true
         handleShowModal(true)
       }
