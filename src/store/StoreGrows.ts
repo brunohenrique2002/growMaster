@@ -17,13 +17,12 @@ export const useGrowsStore = defineStore('grow', {
     },
     async fetchListGrows() {
       this.error = null
-      this.setLoaderActive(true)
       try {
         const response = await authService.listGrow()
         this.grows = response.data
-        if (this.grows) {
-          this.setLoaderActive(false)
-        }
+        // if (this.grows) {
+        //   this.setLoaderActive(false)
+        // }
       } catch (error) {
         console.error(error)
       }
@@ -58,8 +57,10 @@ export const useGrowsStore = defineStore('grow', {
       this.deletePromise = (async () => {
         try {
           await authService.deleteGrow(data)
+          this.setLoaderActive(true)
           if (this.grows) {
             await this.fetchListGrows()
+            this.setLoaderActive(false)
           }
         } catch (error) {
           console.log(error)

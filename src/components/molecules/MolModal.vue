@@ -59,10 +59,21 @@ export default defineComponent({
   position: fixed;
   top: 13%;
   width: 93%;
+  max-width: 600px;
+  max-height: 80vh;
   background-color: #f5f5f5;
   padding: 2rem 1.5rem;
   border-radius: 5px;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__content {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+  }
 
   &__close {
     font-size: 2.4rem;

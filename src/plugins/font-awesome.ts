@@ -21,6 +21,7 @@ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { faAnglesRight } from '@fortawesome/free-solid-svg-icons'
+import { faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
   faUser,
@@ -43,7 +44,8 @@ library.add(
   faExclamationTriangle,
   faCircleExclamation,
   faAngleLeft,
-  faAnglesRight
+  faAnglesRight,
+  faEyeSlash
 )
 
 export { FontAwesomeIcon }

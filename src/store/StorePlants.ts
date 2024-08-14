@@ -17,14 +17,12 @@ export const usePlantsStore = defineStore('plants', {
 
     async fetchListPlants() {
       this.error = null
-      this.setLoaderActive(true)
+      // this.setLoaderActive(true)
       try {
         const response = await authService.listPlant()
         this.plants = response.data
       } catch (error) {
         console.error(error)
-      } finally {
-        this.setLoaderActive(false)
       }
     },
 
@@ -57,8 +55,10 @@ export const usePlantsStore = defineStore('plants', {
       this.deletePromise = (async () => {
         try {
           await authService.deletePlant(data)
+          this.setLoaderActive(true)
           if (this.plants) {
             await this.fetchListPlants()
+            this.setLoaderActive(false)
           }
         } catch (error) {
           console.log(error)
