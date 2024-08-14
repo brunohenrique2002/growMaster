@@ -17,10 +17,15 @@ export const usePlantsStore = defineStore('plants', {
 
     async fetchListPlants() {
       this.error = null
-      // this.setLoaderActive(true)
+      if (this.plants.length === 0) {
+        this.setLoaderActive(true)
+      }
       try {
         const response = await authService.listPlant()
         this.plants = response.data
+        if (this.plants) {
+          this.setLoaderActive(false)
+        }
       } catch (error) {
         console.error(error)
       }

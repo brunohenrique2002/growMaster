@@ -5,22 +5,22 @@
     <AtHistoricRecent :historicRecent="historic" />
     <div class="sla">
       <MolTable :titles="tableHeaders" :items="tableRows" @deleteItem="deletePlant" />
-      <AtLoader :isLoaderActive="isActiveLoader" />
+      <!-- <AtLoader :isLoaderActive="isActiveLoader" /> -->
     </div>
   </div>
 </template>
 <script>
-import { defineComponent, onMounted, computed, ref } from 'vue'
+import { defineComponent, onMounted, computed } from 'vue'
 import MolTable from '@/components/molecules/MolTable.vue'
 import AtCard from '@/components/atoms/AtCard.vue'
 import AtHistoricRecent from '@/components/atoms/AtHistoricRecent.vue'
-import AtLoader from '@/components/atoms/AtLoader.vue'
+// import AtLoader from '@/components/atoms/AtLoader.vue'
 import { useUserStore } from '@/store/StoreUser'
 import { usePlantsStore } from '@/store/StorePlants'
 // import authService from '@/services/ApiService'
 export default defineComponent({
   name: 'Home',
-  components: { MolTable, AtCard, AtHistoricRecent, AtLoader },
+  components: { MolTable, AtCard, AtHistoricRecent },
   setup() {
     const userStore = useUserStore()
     const plantStore = usePlantsStore()

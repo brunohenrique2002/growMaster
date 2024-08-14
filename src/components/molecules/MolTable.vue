@@ -7,7 +7,8 @@
         </tr>
       </thead>
 
-      <tbody>
+      <AtLoader :isLoaderActive="isActiveLoader" />
+      <tbody v-if="items.length > 0">
         <tr v-for="(item, index) in items" :key="index">
           <td v-for="(title, index) in titles" :key="index">
             <span v-if="title === 'Ações'">
@@ -24,6 +25,7 @@
           </td>
         </tr>
       </tbody>
+      <p v-else class="table__empty-message">Lista vazia...</p>
     </table>
     <div class="table__arrow-icons">
       <AtIcons class="table__icon-pages" :icon="['fas', 'angles-left']" />
@@ -34,14 +36,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, computed } from 'vue'
 import AtIcons from '@/components/atoms/AtIcons.vue'
+import AtLoader from '@/components/atoms/AtLoader.vue'
+import { useLoaderStore } from '@/store/StoreLoader'
 interface TableRow {
   [key: string]: any
 }
 export default defineComponent({
   name: 'MolTable',
-  components: { AtIcons },
+  components: { AtIcons, AtLoader },
   props: {
     titles: {
       type: Array as PropType<string[]>,
@@ -55,13 +59,15 @@ export default defineComponent({
   emits: ['deleteItem', 'editItem'],
 
   setup(props, { emit }) {
+    const loaderStore = useLoaderStore()
+    const isActiveLoader = computed(() => loaderStore.isLoaderActive)
     const editItem = (id: number) => {
       emit('editItem', id)
     }
     const deleteItem = (id: number) => {
       emit('deleteItem', id)
     }
-    return { deleteItem, editItem }
+    return { deleteItem, editItem, isActiveLoader }
   }
 })
 </script>
@@ -71,6 +77,7 @@ export default defineComponent({
   border: 1px solid var(--color-lightgreen);
   padding: 1rem;
   border-radius: 1rem;
+  position: relative;
 }
 .table {
   width: 100%;
@@ -79,6 +86,14 @@ export default defineComponent({
   flex-direction: column;
   margin-bottom: 4rem;
 
+  &__empty-message {
+    display: flex;
+    justify-content: center;
+    font-size: 1.1rem;
+    padding-top: 10px;
+    font-weight: bold;
+    color: var(--color-primary);
+  }
   &__arrow-icons {
     display: flex;
     justify-content: center;

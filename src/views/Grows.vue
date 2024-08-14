@@ -3,7 +3,6 @@
     <h1 class="grow__title">Grows</h1>
     <AtCard :total="totalGrow" totalInfo="Total de grows" class="home__card" />
     <div class="grow__container">
-      <AtLoader :isLoaderActive="isActiveLoader" />
       <MolModal
         v-if="activeModal.showModalListGrow"
         @closeModal="handleShowModal"
@@ -41,7 +40,8 @@
           :items="tableRows"
           @deleteItem="deleteGrow"
           @editItem="toEdit"
-        />
+        >
+        </MolTable>
       </div>
     </div>
   </div>
@@ -53,14 +53,12 @@ import MolTable from '@/components/molecules/MolTable.vue'
 import MolModal from '@/components/molecules/MolModal.vue'
 import AtButton from '@/components/atoms/AtButton.vue'
 import AtInput from '@/components/atoms/AtInput.vue'
-import AtLoader from '@/components/atoms/AtLoader.vue'
-
 import { useStoreModals } from '@/store/StoreModals'
 import { useGrowsStore } from '@/store/StoreGrows'
 import { Grow, GrowEdit } from '@/types/Grows'
 export default defineComponent({
   name: 'grows',
-  components: { MolTable, AtButton, MolModal, AtInput, AtLoader, AtCard },
+  components: { MolTable, AtButton, MolModal, AtInput, AtCard },
   setup() {
     const name = ref('')
     const description = ref('')
