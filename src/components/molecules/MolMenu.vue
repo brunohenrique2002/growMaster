@@ -4,12 +4,12 @@
     <div class="menu__sidebar" :class="{ active: sideStore.isActiveMenu }">
       <div class="menu__sidebar-header">
         <h1>Side Grow</h1>
-        <AtIcons @click="showSide" :icon="['fas', 'angles-left']" size="2x" />
+        <AtIcons @click="showSide" :icon="['fas', 'angles-left']" size="2x" class="menu__close" />
       </div>
       <div class="menu__sidebar-content">
         <ul class="menu__sidebar-list">
           <li class="menu__sidebar-items" v-for="(item, index) in sideList" :key="index">
-            <AtIcons :icon="item.icon" @click="handleAction(item)" />
+            <AtIcons :icon="item.icon" @click="handleAction(item)" class="menu__siderbar-icon" />
             <p class="menu__sidebar-text" @click="handleAction(item)">{{ item.text }}</p>
           </li>
         </ul>
@@ -119,6 +119,19 @@ export default defineComponent({
 
   &__sidebar-text {
     margin-left: 3rem;
+  }
+  @media (min-width: 600px) {
+    &__sidebar-items:hover {
+      color: #ffffffa3;
+      transition: 0.3s;
+    }
+    &__sidebar {
+      width: 350px;
+    }
+    &__sidebar-content,
+    &__close {
+      cursor: pointer;
+    }
   }
 }
 </style>

@@ -1,11 +1,17 @@
 <template>
   <div class="home">
-    <h1 class="home__title">Dashboard</h1>
-    <AtCard :total="totalPlant" totalInfo="Total de plantas" class="home__card" />
-    <AtHistoricRecent :historicRecent="historic" />
-    <div class="sla">
-      <MolTable :titles="tableHeaders" :items="tableRows" @deleteItem="deletePlant" />
-      <!-- <AtLoader :isLoaderActive="isActiveLoader" /> -->
+    <div class="home__container">
+      <div class="home__totalPlant">
+        <h1 class="home__title">Dashboard</h1>
+        <AtCard :total="totalPlant" totalInfo="Total de plantas" class="home__card" />
+      </div>
+      <div class="home__home-historic">
+        <AtHistoricRecent :historicRecent="historic" />
+      </div>
+      <div class="home__home-plants">
+        <h1 class="home__title">Plantas</h1>
+        <MolTable :titles="tableHeaders" :items="tableRows" @deleteItem="deletePlant" />
+      </div>
     </div>
   </div>
 </template>
@@ -14,10 +20,8 @@ import { defineComponent, onMounted, computed } from 'vue'
 import MolTable from '@/components/molecules/MolTable.vue'
 import AtCard from '@/components/atoms/AtCard.vue'
 import AtHistoricRecent from '@/components/atoms/AtHistoricRecent.vue'
-// import AtLoader from '@/components/atoms/AtLoader.vue'
 import { useUserStore } from '@/store/StoreUser'
 import { usePlantsStore } from '@/store/StorePlants'
-// import authService from '@/services/ApiService'
 export default defineComponent({
   name: 'Home',
   components: { MolTable, AtCard, AtHistoricRecent },
@@ -80,6 +84,18 @@ export default defineComponent({
     padding: 1rem 8rem;
     min-height: 410px;
     width: 90%;
+    &__container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    &__totalPlant,
+    &__home-plants,
+    &__home-historic {
+      width: 500px;
+    }
   }
 }
 </style>

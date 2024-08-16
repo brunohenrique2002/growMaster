@@ -1,36 +1,38 @@
 <template>
-  <div class="table-box">
-    <table class="table">
-      <thead>
-        <tr>
-          <th v-for="(title, index) in titles" :key="index">{{ title }}</th>
-        </tr>
-      </thead>
+  <div class="table__container">
+    <div class="table-box">
+      <table class="table">
+        <thead>
+          <tr>
+            <th v-for="(title, index) in titles" :key="index">{{ title }}</th>
+          </tr>
+        </thead>
 
-      <AtLoader :isLoaderActive="isActiveLoader" />
-      <tbody v-if="items.length > 0">
-        <tr v-for="(item, index) in items" :key="index">
-          <td v-for="(title, index) in titles" :key="index">
-            <span v-if="title === 'Ações'">
-              <AtIcons class="table__icons" :icon="['fas', 'eye']" @click="editItem(item.id)" />
-              <AtIcons
-                class="table__icons table__icon-margin"
-                :icon="['fas', 'trash']"
-                @click="deleteItem(item.id)"
-              />
-            </span>
-            <span v-else>
-              {{ item[title] }}
-            </span>
-          </td>
-        </tr>
-      </tbody>
-      <p v-else class="table__empty-message">Lista vazia...</p>
-    </table>
-    <div class="table__arrow-icons">
-      <AtIcons class="table__icon-pages" :icon="['fas', 'angles-left']" />
-      <div class="table__icon-space"></div>
-      <AtIcons class="table__icon-pages" :icon="['fas', 'angles-right']" />
+        <AtLoader :isLoaderActive="isActiveLoader" />
+        <tbody v-if="items.length > 0">
+          <tr v-for="(item, index) in items" :key="index">
+            <td v-for="(title, index) in titles" :key="index">
+              <span v-if="title === 'Ações'">
+                <AtIcons class="table__icons" :icon="['fas', 'eye']" @click="editItem(item.id)" />
+                <AtIcons
+                  class="table__icons table__icon-margin"
+                  :icon="['fas', 'trash']"
+                  @click="deleteItem(item.id)"
+                />
+              </span>
+              <span v-else>
+                {{ item[title] }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+        <p v-else class="table__empty-message">Lista vazia...</p>
+      </table>
+      <div class="table__arrow-icons">
+        <AtIcons class="table__icon-pages" :icon="['fas', 'angles-left']" />
+        <div class="table__icon-space"></div>
+        <AtIcons class="table__icon-pages" :icon="['fas', 'angles-right']" />
+      </div>
     </div>
   </div>
 </template>
@@ -136,8 +138,17 @@ export default defineComponent({
     margin-left: 12px;
   }
   @media (min-width: 600px) {
+    &__container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
     td {
       padding: 1.5em;
+    }
+    &__icon-margin:hover {
+      color: #ff4d4deb;
     }
   }
 }

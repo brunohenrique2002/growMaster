@@ -1,7 +1,9 @@
 <template>
   <div class="grow">
-    <h1 class="grow__title">Grows</h1>
-    <AtCard :total="totalGrow" totalInfo="Total de grows" class="home__card" />
+    <div class="grow__total-grow">
+      <h1 class="grow__title">Grows</h1>
+      <AtCard :total="totalGrow" totalInfo="Total de grows" class="home__card" />
+    </div>
     <div class="grow__container">
       <MolModal
         v-if="activeModal.showModalListGrow"
@@ -34,14 +36,16 @@
       <div class="grow__add-grow">
         <AtButton class="grow__button-add" text="Adicionar grow" @click="showModal" />
       </div>
-      <div class="grow__list-grows">
-        <MolTable
-          :titles="tableHeaders"
-          :items="tableRows"
-          @deleteItem="deleteGrow"
-          @editItem="toEdit"
-        >
-        </MolTable>
+      <div class="grow__table-grows">
+        <div class="grow__list-grows">
+          <MolTable
+            :titles="tableHeaders"
+            :items="tableRows"
+            @deleteItem="deleteGrow"
+            @editItem="toEdit"
+          >
+          </MolTable>
+        </div>
       </div>
     </div>
   </div>
@@ -208,6 +212,15 @@ export default defineComponent({
   }
   &__title {
     padding: 2rem 0;
+  }
+  &__table-grows {
+    width: 100%;
+  }
+  @media (min-width: 600px) {
+    &__total-grow,
+    &__table-grows {
+      width: 500px;
+    }
   }
 }
 </style>

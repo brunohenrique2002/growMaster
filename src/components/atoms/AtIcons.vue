@@ -1,5 +1,5 @@
 <template>
-  <font-awesome-icon class="navBar__icon" :icon="icon" />
+  <font-awesome-icon class="icon" :icon="icon" />
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
@@ -15,4 +15,8 @@ export default defineComponent({
   }
 })
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.icon {
+  cursor: pointer;
+}
+</style>
