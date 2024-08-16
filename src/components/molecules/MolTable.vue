@@ -77,7 +77,6 @@ export default defineComponent({
   border: 1px solid var(--color-lightgreen);
   padding: 1rem;
   border-radius: 1rem;
-  position: relative;
 }
 .table {
   width: 100%;

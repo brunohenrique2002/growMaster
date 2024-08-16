@@ -1,4 +1,5 @@
 <template>
+  <div class="background" :class="{ active: isLoaderActive }"></div>
   <div class="loader" v-show="isLoaderActive">
     <div class="loader__spinner"></div>
   </div>
@@ -43,6 +44,23 @@ export default defineComponent({
     100% {
       transform: rotate(1turn);
     }
+  }
+}
+.background {
+  background-color: rgb(129 129 129 / 41%);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 </style>

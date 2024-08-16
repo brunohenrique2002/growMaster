@@ -7,7 +7,6 @@ export const useGrowsStore = defineStore('grow', {
   state: (): GrowState => ({
     grows: [],
     error: null,
-    isLoaderActive: false,
     requestProgress: false,
     isDeleting: false,
     deletePromise: null
@@ -34,8 +33,10 @@ export const useGrowsStore = defineStore('grow', {
 
       const isActiveModal = useStoreModals()
       const isLoader = useLoaderStore()
+
       try {
         this.requestProgress = true
+        isActiveModal.activeBakground()
         isLoader.setLoaderActive(true)
 
         await authService.addGrow(data)
